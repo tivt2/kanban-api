@@ -4,7 +4,7 @@ import { InvalidRefreshTokenError } from '../error-handler/errors/invalid-refres
 
 export class RefreshRequest {
   async validate(req: Request) {
-    const { refresh_token } = req.cookies.refresh_token;
+    const { refresh_token } = req.cookies;
 
     if (!refresh_token) {
       return Either.left(new InvalidRefreshTokenError());

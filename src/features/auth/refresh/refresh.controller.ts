@@ -27,6 +27,7 @@ export class RefreshController {
     }
 
     const { new_access_token, new_refresh_token } = refreshed_tokens.valueR;
+
     res.status(200);
     res.cookie('refresh_token', new_refresh_token, { httpOnly: true });
     res.json({ access_token: new_access_token });
