@@ -1,3 +1,3 @@
 export interface IUserInputValidator {
-  isValid(email: string, password: string): Promise<boolean>;
+  validate(email: string, password: string): Promise<boolean>;
 }
