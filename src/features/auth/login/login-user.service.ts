@@ -1,4 +1,5 @@
 import { IUserRepository } from '../../../data/repositories/interfaces/user-repository.interface';
+import { Either } from '../../../shared/Either';
 import { InvalidCredentialsError } from '../error-handler/errors/invalid-credentials-error';
 import { LoginUserServiceError } from '../error-handler/errors/login-user.service.error';
 import { UserNotFoundError } from '../error-handler/errors/user-not-found-error';
@@ -12,28 +13,27 @@ export class LoginUserService {
     private tokenManager: ITokenManager,
   ) {}
 
-  async login(email: string, password: string) {
+  async login(email: string, password: string): Promise<Either<Error, string>> {
     try {
       const user = await this.userRepo.findByEmail(email);
       if (!user) {
-        throw new UserNotFoundError(
-          'Please provide a valid email and password',
+        return Either.left(
+          new UserNotFoundError('Please provide a valid email and password'),
         );
       }
 
       const doMatch = this.passEncrypt.compare(password, user.password);
       if (!doMatch) {
-        throw new InvalidCredentialsError(
-          'Please provide a valid email and password',
+        return Either.left(
+          new InvalidCredentialsError(
+            'Please provide a valid email and password',
+          ),
         );
       }
 
-      const token = this.tokenManager.generate({ userId: user.id });
-      return token;
+      const token = await this.tokenManager.generate({ userId: user.id });
+      return Either.right(token);
     } catch (err) {
-      if (err instanceof (UserNotFoundError || InvalidCredentialsError)) {
-        throw err;
-      }
       throw new LoginUserServiceError();
     }
   }
