@@ -12,6 +12,12 @@ export class AuthAccessRequest {
       return Either.left(new InvalidAccessTokenError());
     }
 
+    const [bearer, accessToken] = token.split(' ');
+
+    if (bearer !== 'Bearer' || !accessToken) {
+      return Either.left(new InvalidAccessTokenError());
+    }
+
     return Either.right(token);
   }
 }
