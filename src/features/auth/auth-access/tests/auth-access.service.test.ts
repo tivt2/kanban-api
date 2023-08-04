@@ -1,4 +1,4 @@
-import { InvalidAccessTokenError } from '../../error-handler/errors/InvalidAccessTokenError';
+import { InvalidAccessTokenError } from '../../error-handler/errors/Invalid-access-token-error';
 import { AuthAccessServiceError } from '../../error-handler/errors/auth-access.service.error';
 import { TokenManagerSpy } from '../../utils/mocks/token-manager.spy';
 import { AuthAccessService } from '../auth-access.service';

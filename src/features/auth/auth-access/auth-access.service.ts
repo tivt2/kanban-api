@@ -1,7 +1,7 @@
 import { JsonWebTokenError } from 'jsonwebtoken';
 import { Either } from '../../../shared/Either';
 import { ITokenManager } from '../utils/interfaces/token-manager.interface';
-import { InvalidAccessTokenError } from '../error-handler/errors/InvalidAccessTokenError';
+import { InvalidAccessTokenError } from '../error-handler/errors/Invalid-access-token-error';
 import { AuthAccessServiceError } from '../error-handler/errors/auth-access.service.error';
 
 export class AuthAccessService {

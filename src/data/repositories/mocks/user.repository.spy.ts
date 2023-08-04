@@ -6,8 +6,8 @@ export class UserRepositorySpy implements IUserRepository {
     id: 'valid_id',
     email: '',
     password: '',
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    created_at: new Date(),
+    updated_at: new Date(),
   };
   undefined = false;
   shouldThrow = false;
