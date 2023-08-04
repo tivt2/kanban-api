@@ -23,10 +23,10 @@ describe('RegisterUserRequest', () => {
       },
     };
 
-    const { email, password } = await sut.validate(data as Request);
+    const body = await sut.validate(data as Request);
+    expect(body.isRight()).toBe(true);
 
-    expect(email).toBe(data.body.email);
-    expect(password).toBe(data.body.password);
+    expect(body.valueR).toMatchObject(data.body);
   });
 
   test('Should throw correct error if helper throw', async () => {
@@ -53,9 +53,10 @@ describe('RegisterUserRequest', () => {
       },
     };
 
-    await expect(
-      async () => await sut.validate(data as Request),
-    ).rejects.toThrow(InvalidCredentialsError);
+    const body = await sut.validate(data as Request);
+
+    expect(body.isLeft()).toBe(true);
+    expect(body.valueL).toBeInstanceOf(InvalidCredentialsError);
   });
 
   test('Should throw correct error if email or password is not valid', async () => {
@@ -68,9 +69,9 @@ describe('RegisterUserRequest', () => {
     };
 
     inputValidatorSpy.isValid = false;
+    const body = await sut.validate(data as Request);
 
-    await expect(
-      async () => await sut.validate(data as Request),
-    ).rejects.toThrow(InvalidCredentialsError);
+    expect(body.isLeft()).toBe(true);
+    expect(body.valueL).toBeInstanceOf(InvalidCredentialsError);
   });
 });
