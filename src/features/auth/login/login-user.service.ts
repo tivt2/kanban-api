@@ -31,7 +31,7 @@ export class LoginUserService {
         );
       }
 
-      const token = await this.accessManager.generate({ userId: user.id });
+      const token = await this.accessManager.generate({ user_id: user.id });
       return Either.right(token);
     } catch (err) {
       throw new LoginUserServiceError();

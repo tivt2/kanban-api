@@ -17,14 +17,14 @@ export class AuthAccessController {
       return;
     }
 
-    const userId = await this.accessService.authorize(token.valueR);
-    if (userId.isLeft()) {
+    const user_id = await this.accessService.authorize(token.valueR);
+    if (user_id.isLeft()) {
       res.status(401);
-      res.json({ message: userId.valueL.message });
+      res.json({ message: user_id.valueL.message });
       return;
     }
 
-    req.body.userId = userId.valueR;
+    req.body.user_id = user_id.valueR;
     next();
   }
 }

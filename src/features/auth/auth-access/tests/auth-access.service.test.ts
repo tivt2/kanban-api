@@ -17,11 +17,11 @@ describe('AuthAccessService', () => {
     const { sut, accessManagerSpy } = makeSut();
     const token = 'valid_token';
 
-    accessManagerSpy.payload = { userId: token };
-    const userId = await sut.authorize(token);
+    accessManagerSpy.payload = { user_id: token };
+    const user_id = await sut.authorize(token);
 
-    expect(userId.isRight()).toBe(true);
-    expect(userId.valueR).toBe(token);
+    expect(user_id.isRight()).toBe(true);
+    expect(user_id.valueR).toBe(token);
   });
 
   test('Should return correct error if token is not valid', async () => {
@@ -29,10 +29,10 @@ describe('AuthAccessService', () => {
     const token = 'valid_token';
 
     accessManagerSpy.shouldThrow = true;
-    const userId = await sut.authorize(token);
+    const user_id = await sut.authorize(token);
 
-    expect(userId.isLeft()).toBe(true);
-    expect(userId.valueL).toBeInstanceOf(InvalidAccessTokenError);
+    expect(user_id.isLeft()).toBe(true);
+    expect(user_id.valueL).toBeInstanceOf(InvalidAccessTokenError);
   });
 
   test('Should throw correct error if helpers throw', async () => {

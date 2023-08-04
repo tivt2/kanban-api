@@ -7,21 +7,21 @@ export class TokenManagerSpy implements ITokenManager {
   jsonError = true;
 
   constructor(private secret: string) {}
-  async generate(payload: { userId: string }): Promise<string> {
+  async generate(payload: { user_id: string }): Promise<string> {
     if (this.shouldThrow) {
       throw new Error();
     }
     this.payload = payload;
     return 'valid_access_token';
   }
-  async verify(token: string): Promise<{ userId: string }> {
+  async verify(token: string): Promise<{ user_id: string }> {
     if (this.shouldThrow) {
       if (this.jsonError) {
         throw new JsonWebTokenError('token_error');
       }
       throw new Error();
     }
-    this.payload = { userId: token };
-    return this.payload as { userId: string };
+    this.payload = { user_id: token };
+    return this.payload as { user_id: string };
   }
 }
