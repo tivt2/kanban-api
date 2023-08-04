@@ -17,14 +17,17 @@ export class LoginUserController {
     }
 
     const { email, password } = body.valueR;
-    const token = await this.loginService.login(email, password);
-    if (token.isLeft()) {
+    const tokens = await this.loginService.login(email, password);
+    if (tokens.isLeft()) {
       res.status(401);
       res.json({ message: body.valueL.message });
       return;
     }
 
+    const { access_token, refresh_token } = tokens.valueR;
+
     res.status(200);
-    res.json({ token });
+    res.cookie('refresh_token', refresh_token, { httpOnly: true });
+    res.json({ access_token });
   }
 }

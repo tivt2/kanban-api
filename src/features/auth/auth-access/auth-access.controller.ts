@@ -9,15 +9,15 @@ export class AuthAccessController {
   ) {}
 
   async control(req: Request, res: Response, next: NextFunction) {
-    const token = await this.accessRequest.validate(req);
+    const access_token = await this.accessRequest.validate(req);
 
-    if (token.isLeft()) {
+    if (access_token.isLeft()) {
       res.status(401);
-      res.json({ message: token.valueL.message });
+      res.json({ message: access_token.valueL.message });
       return;
     }
 
-    const user_id = await this.accessService.authorize(token.valueR);
+    const user_id = await this.accessService.authorize(access_token.valueR);
     if (user_id.isLeft()) {
       res.status(401);
       res.json({ message: user_id.valueL.message });

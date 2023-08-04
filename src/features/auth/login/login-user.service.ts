@@ -11,9 +11,13 @@ export class LoginUserService {
     private userRepo: IUserRepository,
     private passEncrypt: IPasswordEncrypter,
     private accessManager: ITokenManager,
+    private refreshManager: ITokenManager,
   ) {}
 
-  async login(email: string, password: string): Promise<Either<Error, string>> {
+  async login(
+    email: string,
+    password: string,
+  ): Promise<Either<Error, { access_token: string; refresh_token: string }>> {
     try {
       const user = await this.userRepo.findByEmail(email);
       if (!user) {
@@ -31,8 +35,13 @@ export class LoginUserService {
         );
       }
 
-      const token = await this.accessManager.generate({ user_id: user.id });
-      return Either.right(token);
+      const access_token = await this.accessManager.generate({
+        user_id: user.id,
+      });
+      const refresh_token = await this.refreshManager.generate({
+        user_id: user.id,
+      });
+      return Either.right({ access_token, refresh_token });
     } catch (err) {
       throw new LoginUserServiceError();
     }

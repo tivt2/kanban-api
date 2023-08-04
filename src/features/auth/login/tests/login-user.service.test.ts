@@ -10,16 +10,19 @@ function makeSut() {
   const userRepoSpy = new UserRepositorySpy();
   const passEncryptSpy = new PasswordEncrypterSpy();
   const accessManagerSpy = new TokenManagerSpy('access_secret');
+  const refreshManagerSpy = new TokenManagerSpy('refresh_secret');
   const sut = new LoginUserService(
     userRepoSpy,
     passEncryptSpy,
     accessManagerSpy,
+    refreshManagerSpy,
   );
   return {
     sut,
     userRepoSpy,
     passEncryptSpy,
     accessManagerSpy,
+    refreshManagerSpy,
   };
 }
 
@@ -37,7 +40,13 @@ describe('LoginUserService', () => {
   });
 
   test('Should throw correct error if helpers throw', async () => {
-    const { sut, userRepoSpy, passEncryptSpy, accessManagerSpy } = makeSut();
+    const {
+      sut,
+      userRepoSpy,
+      passEncryptSpy,
+      accessManagerSpy,
+      refreshManagerSpy,
+    } = makeSut();
     const data = {
       email: 'valid_email',
       password: 'valid_password',
@@ -56,6 +65,12 @@ describe('LoginUserService', () => {
 
     passEncryptSpy.shouldThrow = false;
     accessManagerSpy.shouldThrow = true;
+    await expect(
+      async () => await sut.login(data.email, data.password),
+    ).rejects.toThrow(LoginUserServiceError);
+
+    accessManagerSpy.shouldThrow = false;
+    refreshManagerSpy.shouldThrow = true;
     await expect(
       async () => await sut.login(data.email, data.password),
     ).rejects.toThrow(LoginUserServiceError);
