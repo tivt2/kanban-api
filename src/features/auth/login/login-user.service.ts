@@ -10,7 +10,7 @@ export class LoginUserService {
   constructor(
     private userRepo: IUserRepository,
     private passEncrypt: IPasswordEncrypter,
-    private tokenManager: ITokenManager,
+    private accessManager: ITokenManager,
   ) {}
 
   async login(email: string, password: string): Promise<Either<Error, string>> {
@@ -22,7 +22,7 @@ export class LoginUserService {
         );
       }
 
-      const doMatch = this.passEncrypt.compare(password, user.password);
+      const doMatch = await this.passEncrypt.compare(password, user.password);
       if (!doMatch) {
         return Either.left(
           new InvalidCredentialsError(
@@ -31,7 +31,7 @@ export class LoginUserService {
         );
       }
 
-      const token = await this.tokenManager.generate({ userId: user.id });
+      const token = await this.accessManager.generate({ userId: user.id });
       return Either.right(token);
     } catch (err) {
       throw new LoginUserServiceError();

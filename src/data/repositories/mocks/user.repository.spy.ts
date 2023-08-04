@@ -9,6 +9,7 @@ export class UserRepositorySpy implements IUserRepository {
     createdAt: new Date(),
     updatedAt: new Date(),
   };
+  undefined = false;
   shouldThrow = false;
 
   async insert(email: string, password: string): Promise<TUser> {
@@ -23,6 +24,9 @@ export class UserRepositorySpy implements IUserRepository {
   async findByEmail(email: string): Promise<TUser | undefined> {
     if (this.shouldThrow) {
       throw new Error();
+    }
+    if (this.undefined) {
+      return;
     }
     this.user.email = email;
     return this.user;

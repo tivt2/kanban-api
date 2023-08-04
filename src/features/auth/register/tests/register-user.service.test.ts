@@ -35,15 +35,15 @@ describe('RegisterUserService', () => {
       password: 'valid_password',
     };
 
-    passEncryptSpy.shouldThrow = true;
-    await expect(async () =>
-      sut.register(data.email, data.password),
+    userRepoSpy.shouldThrow = true;
+    await expect(
+      async () => await sut.register(data.email, data.password),
     ).rejects.toThrow(RegisterUserServiceError);
 
-    passEncryptSpy.shouldThrow = false;
-    userRepoSpy.shouldThrow = true;
-    await expect(async () =>
-      sut.register(data.email, data.password),
+    userRepoSpy.shouldThrow = false;
+    passEncryptSpy.shouldThrow = true;
+    await expect(
+      async () => await sut.register(data.email, data.password),
     ).rejects.toThrow(RegisterUserServiceError);
   });
 });
