@@ -19,4 +19,12 @@ export class UserRepositorySpy implements IUserRepository {
     this.user.password = password;
     return this.user;
   }
+
+  async findByEmail(email: string): Promise<TUser | undefined> {
+    if (this.shouldThrow) {
+      throw new Error();
+    }
+    this.user.email = email;
+    return this.user;
+  }
 }

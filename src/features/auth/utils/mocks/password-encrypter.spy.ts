@@ -4,6 +4,7 @@ export class PasswordEncrypterSpy implements IPasswordEncrypter {
   password = '';
   hashedPassword = '';
   shouldThrow = false;
+  doMatch = true;
 
   async encrypt(password: string): Promise<string> {
     if (this.shouldThrow) {
@@ -12,5 +13,11 @@ export class PasswordEncrypterSpy implements IPasswordEncrypter {
     this.password = password;
     this.hashedPassword = `${password}_encrypted`;
     return this.hashedPassword;
+  }
+
+  async compare(password: string, hashedPassword: string): Promise<boolean> {
+    this.password = password;
+    this.hashedPassword = hashedPassword;
+    return this.doMatch;
   }
 }
