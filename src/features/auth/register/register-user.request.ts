@@ -2,7 +2,7 @@ import { Request } from 'express';
 import { IUserInputValidator } from '../utils/interfaces/user-input-validator.interface';
 import { RegisterUserRequestError } from '../error-handler/errors/register-user.request.error';
 import { InvalidCredentialsError } from '../error-handler/errors/invalid-credentials-error';
-import { Either } from '../../../shared/Either';
+import { Either } from '../../../shared/either';
 
 export class RegisterUserRequest {
   constructor(private userInputValidator: IUserInputValidator) {}

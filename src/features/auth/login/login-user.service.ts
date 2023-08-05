@@ -1,5 +1,5 @@
 import { IUserRepository } from '../../../data/repositories/interfaces/user-repository.interface';
-import { Either } from '../../../shared/Either';
+import { Either } from '../../../shared/either';
 import { InvalidCredentialsError } from '../error-handler/errors/invalid-credentials-error';
 import { LoginUserServiceError } from '../error-handler/errors/login-user.service.error';
 import { UserNotFoundError } from '../error-handler/errors/user-not-found-error';

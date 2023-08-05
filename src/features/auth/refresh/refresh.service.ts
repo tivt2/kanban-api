@@ -1,5 +1,5 @@
 import { JsonWebTokenError } from 'jsonwebtoken';
-import { Either } from '../../../shared/Either';
+import { Either } from '../../../shared/either';
 import { RefreshServiceError } from '../error-handler/errors/refresh.service.error';
 import { ITokenManager } from '../utils/interfaces/token-manager.interface';
 import { InvalidRefreshTokenError } from '../error-handler/errors/invalid-refresh-token-error';

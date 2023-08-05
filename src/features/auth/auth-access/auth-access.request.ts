@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { Either } from '../../../shared/Either';
+import { Either } from '../../../shared/either';
 import { InvalidAccessTokenError } from '../error-handler/errors/Invalid-access-token-error';
 
 export class AuthAccessRequest {
