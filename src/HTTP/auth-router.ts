@@ -1,5 +1,6 @@
 import { Request, Response, Router } from 'express';
-import { get_register_user_controller } from '../features/auth/register/register-user.singletons';
+import { get_register_user_controller } from '../features/auth/register/index.singletons';
+import { get_login_user_controller } from '../features/auth/login/index.singletons';
 
 export const auth_router = Router();
 
@@ -11,7 +12,9 @@ auth_router.post('/register', async (req, res) => {
   await get_register_user_controller().control(req, res);
 });
 
-auth_router.post('/login');
+auth_router.post('/login', async (req, res) => {
+  await get_login_user_controller().control(req, res);
+});
 
 auth_router.post('/logout');
 

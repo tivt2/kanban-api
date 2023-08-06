@@ -20,7 +20,7 @@ export class LoginUserController {
     const tokens = await this.loginService.login(email, password);
     if (tokens.isLeft()) {
       res.status(401);
-      res.json({ message: body.valueL.message });
+      res.json({ message: tokens.valueL.message });
       return;
     }
 

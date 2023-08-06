@@ -1,4 +1,7 @@
+import { REFRESH_EXPIRES_IN_MS } from '../../../../config/CONSTANTS';
+import { RefreshStorageMemorySpy } from '../../../../data/repositories/mocks/refresh-storage.memory.spy';
 import { UserRepositorySpy } from '../../../../data/repositories/mocks/user.repository.spy';
+import { RefreshStorageMemory } from '../../../../data/repositories/refresh-storage.memory';
 import { InvalidCredentialsError } from '../../error-handler/errors/invalid-credentials-error';
 import { LoginUserServiceError } from '../../error-handler/errors/login-user.service.error';
 import { UserNotFoundError } from '../../error-handler/errors/user-not-found-error';
@@ -11,11 +14,13 @@ function makeSut() {
   const passEncryptSpy = new PasswordEncrypterSpy();
   const accessManagerSpy = new TokenManagerSpy('access_secret');
   const refreshManagerSpy = new TokenManagerSpy('refresh_secret');
+  const refreshStorageSpy = new RefreshStorageMemorySpy(1000);
   const sut = new LoginUserService(
     userRepoSpy,
     passEncryptSpy,
     accessManagerSpy,
     refreshManagerSpy,
+    refreshStorageSpy,
   );
   return {
     sut,
@@ -23,6 +28,7 @@ function makeSut() {
     passEncryptSpy,
     accessManagerSpy,
     refreshManagerSpy,
+    refreshStorageSpy,
   };
 }
 
