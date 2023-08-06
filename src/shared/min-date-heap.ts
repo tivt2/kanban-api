@@ -9,8 +9,14 @@ export class MinDateHeap {
   private data_length = 0;
 
   add(user_id: string, date: Date): void {
-    this.data[this.data_length] = { user_id, date };
+    const exists = this.index_map.get(user_id);
+    if (exists) {
+      this.remove(user_id);
+    }
+
     this.index_map.set(user_id, this.data_length);
+    this.data[this.data_length] = { user_id, date };
+
     this.heapify_up(this.data_length);
     this.data_length++;
   }
@@ -36,9 +42,7 @@ export class MinDateHeap {
     if (!last_item) {
       throw new Error('You dont know what you are doing');
     }
-    console.log(this.index_map);
     this.swap(0, this.data_length);
-    console.log(this.index_map);
     this.data.pop();
     this.index_map.delete(curr.user_id);
     this.heapify_down(0);
@@ -96,11 +100,11 @@ export class MinDateHeap {
   }
 
   get heap(): Array<HeapNode | undefined> {
-    return this.data;
+    return structuredClone(this.data);
   }
 
   get hash_map(): Map<string, number> {
-    return this.index_map;
+    return new Map(this.index_map);
   }
 
   get length(): number {

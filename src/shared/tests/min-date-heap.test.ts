@@ -67,7 +67,6 @@ describe('MinDateHeap', () => {
     sut.add('entry_1', new Date(1));
 
     sut.pop();
-    // console.log(sut.heap);
 
     const ans = [
       { user_id: 'entry_1', date: new Date(1) },
@@ -160,6 +159,26 @@ describe('MinDateHeap', () => {
       { user_id: 'entry_0', date: new Date(0) },
       { user_id: 'entry_2', date: new Date(2) },
       { user_id: 'entry_4', date: new Date(4) },
+      { user_id: 'entry_3', date: new Date(3) },
+    ];
+
+    expect(sut.length).toBe(4);
+    expect(sut.heap).toMatchObject(ans);
+  });
+
+  test('Should correctly substitute item and maintain order', () => {
+    const { sut } = makeSut();
+
+    sut.add('entry_0', new Date(4));
+    sut.add('entry_1', new Date(1));
+    sut.add('entry_2', new Date(0));
+    sut.add('entry_3', new Date(3));
+    sut.add('entry_1', new Date(2));
+
+    const ans = [
+      { user_id: 'entry_2', date: new Date(0) },
+      { user_id: 'entry_1', date: new Date(2) },
+      { user_id: 'entry_0', date: new Date(4) },
       { user_id: 'entry_3', date: new Date(3) },
     ];
 

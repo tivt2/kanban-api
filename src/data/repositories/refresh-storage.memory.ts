@@ -1,5 +1,4 @@
 import { TRefreshToken } from '../../models/refresh-token.model';
-import { REFRESH_EXPIRES_IN_MS } from '../../config/CONSTANTS';
 import { MinDateHeap } from '../../shared/min-date-heap';
 import { IRefreshStorageMemory } from './interfaces/refresh-storage.memory.interface';
 
@@ -53,7 +52,6 @@ export class RefreshStorageMemory implements IRefreshStorageMemory {
     if (remove_in_ms <= 0) {
       await this.remove(next_id);
       await this.auto_remove();
-      this.print();
       return;
     }
 
@@ -62,7 +60,6 @@ export class RefreshStorageMemory implements IRefreshStorageMemory {
     this.timeout = setTimeout(async () => {
       await this.remove(next_id);
       await this.auto_remove();
-      this.print();
     }, remove_in_ms);
   }
 }
