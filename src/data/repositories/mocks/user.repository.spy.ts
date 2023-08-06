@@ -21,7 +21,7 @@ export class UserRepositorySpy implements IUserRepository {
     return this.user;
   }
 
-  async findByEmail(email: string): Promise<TUser | undefined> {
+  async find_by_email(email: string): Promise<TUser | undefined> {
     if (this.shouldThrow) {
       throw new Error();
     }

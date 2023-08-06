@@ -15,12 +15,12 @@ export class PasswordEncrypterSpy implements IPasswordEncrypter {
     return this.hashedPassword;
   }
 
-  async compare(password: string, hashedPassword: string): Promise<boolean> {
+  async compare(password: string, hashed_password: string): Promise<boolean> {
     if (this.shouldThrow) {
       throw new Error();
     }
     this.password = password;
-    this.hashedPassword = hashedPassword;
+    this.hashedPassword = hashed_password;
     return this.doMatch;
   }
 }

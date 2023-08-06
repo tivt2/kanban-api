@@ -19,7 +19,7 @@ export class LoginUserService {
     password: string,
   ): Promise<Either<Error, { access_token: string; refresh_token: string }>> {
     try {
-      const user = await this.userRepo.findByEmail(email);
+      const user = await this.userRepo.find_by_email(email);
       if (!user) {
         return Either.left(
           new UserNotFoundError('Please provide a valid email and password'),
