@@ -1,4 +1,4 @@
-import { IUserRepository } from '../../../data/repositories/interfaces/user-repository.interface';
+import { IUserRepository } from '../../../data/repositories/interfaces/user.repository.interface';
 import { Either } from '../../../shared/either';
 import { InvalidCredentialsError } from '../error-handler/errors/invalid-credentials-error';
 import { LoginUserServiceError } from '../error-handler/errors/login-user.service.error';

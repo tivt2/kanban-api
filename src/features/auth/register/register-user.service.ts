@@ -1,4 +1,4 @@
-import { IUserRepository } from '../../../data/repositories/interfaces/user-repository.interface';
+import { IUserRepository } from '../../../data/repositories/interfaces/user.repository.interface';
 import { TUser } from '../../../models/user.model';
 import { RegisterUserServiceError } from '../error-handler/errors/register-user.service.error';
 import { IPasswordEncrypter } from '../utils/interfaces/password-encrypter.interface';

@@ -1,5 +1,5 @@
 export type TRefreshToken = {
-  token: string;
+  refresh_token: string;
   user_id: string;
-  created_at: string;
+  created_at: Date;
 };

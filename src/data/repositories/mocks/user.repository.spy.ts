@@ -1,5 +1,5 @@
 import { TUser } from '../../../models/user.model';
-import { IUserRepository } from '../interfaces/user-repository.interface';
+import { IUserRepository } from '../interfaces/user.repository.interface';
 
 export class UserRepositorySpy implements IUserRepository {
   user: TUser = {
