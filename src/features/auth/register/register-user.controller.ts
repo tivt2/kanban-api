@@ -4,22 +4,23 @@ import { RegisterUserService } from './register-user.service';
 
 export class RegisterUserController {
   constructor(
-    private registerRequest: RegisterUserRequest,
-    private registerService: RegisterUserService,
+    private register_request: RegisterUserRequest,
+    private register_service: RegisterUserService,
   ) {}
 
   async control(req: Request, res: Response) {
-    const body = await this.registerRequest.validate(req);
+    const body = await this.register_request.validate(req);
     if (body.isLeft()) {
       res.status(401);
       res.json({ message: body.valueL.message });
-      return;
+      return res;
     }
 
     const { email, password } = body.valueR;
-    const user = await this.registerService.register(email, password);
+    const user = await this.register_service.register(email, password);
 
     res.status(200);
     res.json({ message: `Welcome ${user.email}` });
+    return res;
   }
 }

@@ -5,7 +5,7 @@ import { InvalidCredentialsError } from '../error-handler/errors/invalid-credent
 import { Either } from '../../../shared/either';
 
 export class RegisterUserRequest {
-  constructor(private userInputValidator: IUserInputValidator) {}
+  constructor(private user_input_validator: IUserInputValidator) {}
 
   async validate(
     req: Request,
@@ -21,8 +21,11 @@ export class RegisterUserRequest {
         );
       }
 
-      const isValid = await this.userInputValidator.validate(email, password);
-      if (!isValid) {
+      const is_valid = await this.user_input_validator.validate(
+        email,
+        password,
+      );
+      if (!is_valid) {
         return Either.left(
           new InvalidCredentialsError(
             'Email or password does not match the requirements',

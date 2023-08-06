@@ -41,9 +41,11 @@ export const get_register_user_controller = (function initializer() {
   let register_user_controller: RegisterUserController | undefined;
   return function () {
     if (!register_user_controller) {
+      const register_user_request = get_register_user_request();
+      const register_user_service = get_register_user_service();
       register_user_controller = new RegisterUserController(
-        get_register_user_request(),
-        get_register_user_service(),
+        register_user_request,
+        register_user_service,
       );
 
       return register_user_controller;

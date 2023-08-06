@@ -5,14 +5,14 @@ import { IPasswordEncrypter } from '../utils/interfaces/password-encrypter.inter
 
 export class RegisterUserService {
   constructor(
-    private userRepo: IUserRepository,
-    private passEncrypt: IPasswordEncrypter,
+    private user_repository: IUserRepository,
+    private password_encrypter: IPasswordEncrypter,
   ) {}
 
   async register(email: string, password: string): Promise<TUser> {
     try {
-      const hashedPassword = await this.passEncrypt.encrypt(password);
-      const user = await this.userRepo.insert(email, hashedPassword);
+      const hashed_password = await this.password_encrypter.encrypt(password);
+      const user = await this.user_repository.insert(email, hashed_password);
       return user;
     } catch (err) {
       throw new RegisterUserServiceError();
