@@ -1,18 +1,22 @@
 import { TUser } from '../../models/user.model';
+import { create_user } from '../DB/queries/create-user';
+import { find_user_by_email } from '../DB/queries/find-user-by-email';
 import { IUserRepository } from './interfaces/user.repository.interface';
 
 export class UserRepository implements IUserRepository {
   async insert(email: string, password: string): Promise<TUser> {
-    return {
-      id: 'any_id',
-      email,
-      password,
-      created_at: new Date(),
-      updated_at: new Date(),
-    };
+    const user = await create_user(email, password);
+
+    return user;
   }
 
   async find_by_email(email: string): Promise<TUser | undefined> {
-    return;
+    const user = await find_user_by_email(email);
+
+    if (!user) {
+      return;
+    }
+
+    return user;
   }
 }

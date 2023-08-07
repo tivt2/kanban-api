@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { RefreshRequest } from './refresh.request';
 import { RefreshService } from './refresh.service';
+import { REFRESH_EXPIRES_IN_MS } from '../../../config/CONSTANTS';
 
 export class RefreshController {
   constructor(
@@ -29,7 +30,10 @@ export class RefreshController {
     const { new_access_token, new_refresh_token } = refreshed_tokens.valueR;
 
     res.status(200);
-    res.cookie('refresh_token', new_refresh_token, { httpOnly: true });
+    res.cookie('refresh_token', new_refresh_token, {
+      httpOnly: true,
+      expires: new Date(new Date().getTime() + REFRESH_EXPIRES_IN_MS),
+    });
     res.json({ access_token: new_access_token });
   }
 }

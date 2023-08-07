@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { LoginUserRequest } from './login-user.request';
 import { LoginUserService } from './login-user.service';
+import { REFRESH_EXPIRES_IN_MS } from '../../../config/CONSTANTS';
 
 export class LoginUserController {
   constructor(
@@ -27,7 +28,10 @@ export class LoginUserController {
     const { access_token, refresh_token } = tokens.valueR;
 
     res.status(200);
-    res.cookie('refresh_token', refresh_token, { httpOnly: true });
+    res.cookie('refresh_token', refresh_token, {
+      httpOnly: true,
+      expires: new Date(new Date().getTime() + REFRESH_EXPIRES_IN_MS),
+    });
     res.json({ access_token });
   }
 }

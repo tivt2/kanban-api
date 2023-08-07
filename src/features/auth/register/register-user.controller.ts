@@ -13,14 +13,20 @@ export class RegisterUserController {
     if (body.isLeft()) {
       res.status(401);
       res.json({ message: body.valueL.message });
-      return res;
+      return;
     }
 
     const { email, password } = body.valueR;
     const user = await this.register_service.register(email, password);
 
+    if (user.isLeft()) {
+      res.status(401);
+      res.json({ message: user.valueL.message });
+      return;
+    }
+
     res.status(200);
-    res.json({ message: `Welcome ${user.email}` });
-    return res;
+    res.json({ message: `Welcome ${user.valueR.email}` });
+    return;
   }
 }
