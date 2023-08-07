@@ -11,4 +11,12 @@ export class RefreshRepository implements IRefreshRepository {
   ): Promise<TRefreshToken | undefined> {
     return;
   }
+
+  async delete_all_user_refreshes(user_id: string): Promise<void> {
+    return;
+  }
+
+  async delete_expired_refreshes(): Promise<void> {
+    return;
+  }
 }

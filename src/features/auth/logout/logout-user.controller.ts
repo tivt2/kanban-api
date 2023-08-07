@@ -18,14 +18,14 @@ export class LogoutUserController {
     }
 
     const user_id = await this.logoutService.logout(refresh_token.valueR);
-    if (!user_id.isLeft()) {
-      res.status(500);
+    if (user_id.isLeft()) {
+      res.status(403);
       res.json({ message: user_id.valueL.message });
       return;
     }
 
     res.status(200);
     res.cookie('refresh_token', '', { httpOnly: true, expires: new Date(0) });
-    res.json({ message: `Login out ${user_id}` });
+    res.json({ message: `Login out ${user_id.valueR}` });
   }
 }

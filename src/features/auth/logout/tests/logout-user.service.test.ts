@@ -1,3 +1,5 @@
+import { RefreshStorageMemorySpy } from '../../../../data/repositories/mocks/refresh-storage.memory.spy';
+import { RefreshRepositorySpy } from '../../../../data/repositories/mocks/refresh.repository.spy';
 import { InvalidRefreshTokenError } from '../../error-handler/errors/invalid-refresh-token-error';
 import { LogoutUserServiceError } from '../../error-handler/errors/logout-user.service.error';
 import { TokenManagerSpy } from '../../utils/mocks/token-manager.spy';
@@ -5,10 +7,18 @@ import { LogoutUserService } from '../logout-user.service';
 
 function makeSut() {
   const refreshManagerSpy = new TokenManagerSpy('refresh_secret');
-  const sut = new LogoutUserService(refreshManagerSpy);
+  const refreshRepositorySpy = new RefreshRepositorySpy();
+  const refreshStorageSpy = new RefreshStorageMemorySpy(1000);
+  const sut = new LogoutUserService(
+    refreshManagerSpy,
+    refreshRepositorySpy,
+    refreshStorageSpy,
+  );
   return {
     sut,
     refreshManagerSpy,
+    refreshRepositorySpy,
+    refreshStorageSpy,
   };
 }
 
