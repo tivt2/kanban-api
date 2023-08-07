@@ -1,3 +1,5 @@
+import { RefreshStorageMemorySpy } from '../../../../data/repositories/mocks/refresh-storage.memory.spy';
+import { RefreshRepositorySpy } from '../../../../data/repositories/mocks/refresh.repository.spy';
 import { InvalidRefreshTokenError } from '../../error-handler/errors/invalid-refresh-token-error';
 import { RefreshServiceError } from '../../error-handler/errors/refresh.service.error';
 import { TokenManagerSpy } from '../../utils/mocks/token-manager.spy';
@@ -6,11 +8,20 @@ import { RefreshService } from '../refresh.service';
 function makeSut() {
   const refreshManagerSpy = new TokenManagerSpy('refresh_secret');
   const accessManagerSpy = new TokenManagerSpy('access_secret');
-  const sut = new RefreshService(refreshManagerSpy, accessManagerSpy);
+  const refreshRepositorySpy = new RefreshRepositorySpy();
+  const refreshStorageMemorySpy = new RefreshStorageMemorySpy(1000);
+  const sut = new RefreshService(
+    refreshManagerSpy,
+    accessManagerSpy,
+    refreshRepositorySpy,
+    refreshStorageMemorySpy,
+  );
   return {
     sut,
     refreshManagerSpy,
     accessManagerSpy,
+    refreshRepositorySpy,
+    refreshStorageMemorySpy,
   };
 }
 

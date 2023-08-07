@@ -1,4 +1,5 @@
 import { RefreshStorageMemory } from './refresh-storage.memory';
+import { RefreshRepository } from './refresh.repository';
 import { UserRepository } from './user.repository';
 
 export const get_user_repository = (function initializer() {
@@ -24,5 +25,18 @@ export const get_refresh_storage_memory = (function initializer() {
     }
 
     return refresh_storage_memory;
+  };
+})();
+
+export const get_refresh_repository = (function initializer() {
+  let refresh_repository: RefreshRepository | undefined;
+  return function () {
+    if (!refresh_repository) {
+      refresh_repository = new RefreshRepository();
+
+      return refresh_repository;
+    }
+
+    return refresh_repository;
   };
 })();
