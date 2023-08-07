@@ -1,9 +1,9 @@
-import { IUserRepository } from '../../../data/repositories/interfaces/user.repository.interface';
+import { IUserRepository } from '../../../data/repositories/user/user.repository.interface';
 import { TUser } from '../../../models/user.model';
 import { Either } from '../../../shared/either';
 import { EmailTakenError } from '../errors/email-taken-error';
 import { RegisterUserServiceError } from '../errors/register-user.service.error';
-import { IPasswordEncrypter } from '../utils/interfaces/password-encrypter.interface';
+import { IPasswordEncrypter } from '../utils/password-encrypter/password-encrypter.interface';
 
 export class RegisterUserService {
   constructor(

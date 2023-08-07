@@ -1,5 +1,5 @@
 import { TRefreshToken } from '../../../models/refresh-token.model';
-import { IRefreshRepository } from '../interfaces/refresh.repository.interface';
+import { IRefreshRepository } from './refresh.repository.interface';
 
 export class RefreshRepositorySpy implements IRefreshRepository {
   refresh_data: TRefreshToken = {

@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { UserInputValidatorSpy } from '../../utils/mocks/user-input-validator.spy';
+import { UserInputValidatorSpy } from '../../utils/user-input-validator/user-input-validator.spy';
 import { RegisterUserRequest } from '../register-user.request';
 import { RegisterUserRequestError } from '../../errors/register-user.request.error';
 import { InvalidCredentialsError } from '../../errors/invalid-credentials-error';

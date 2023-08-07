@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { ITokenManager } from './interfaces/token-manager.interface';
+import { ITokenManager } from './token-manager.interface';
 
 export class TokenManager implements ITokenManager {
   constructor(private secret: string, private expires_in_ms: number) {}

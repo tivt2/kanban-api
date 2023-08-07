@@ -1,12 +1,12 @@
 import { REFRESH_EXPIRES_IN_MS } from '../../../../config/CONSTANTS';
-import { RefreshStorageMemorySpy } from '../../../../data/repositories/mocks/refresh-storage.memory.spy';
-import { UserRepositorySpy } from '../../../../data/repositories/mocks/user.repository.spy';
-import { RefreshStorageMemory } from '../../../../data/repositories/refresh-storage.memory';
+import { RefreshStorageMemorySpy } from '../../../../data/repositories/refresh-storage/refresh-storage.memory.spy';
+import { UserRepositorySpy } from '../../../../data/repositories/user/user.repository.spy';
+import { RefreshStorageMemory } from '../../../../data/repositories/refresh-storage/refresh-storage.memory';
 import { InvalidCredentialsError } from '../../errors/invalid-credentials-error';
 import { LoginUserServiceError } from '../../errors/login-user.service.error';
 import { UserNotFoundError } from '../../errors/user-not-found-error';
-import { PasswordEncrypterSpy } from '../../utils/mocks/password-encrypter.spy';
-import { TokenManagerSpy } from '../../utils/mocks/token-manager.spy';
+import { PasswordEncrypterSpy } from '../../utils/password-encrypter/password-encrypter.spy';
+import { TokenManagerSpy } from '../../utils/token-manager/token-manager.spy';
 import { LoginUserService } from '../login-user.service';
 
 function makeSut() {

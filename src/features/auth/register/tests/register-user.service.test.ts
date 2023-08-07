@@ -1,6 +1,6 @@
-import { UserRepositorySpy } from '../../../../data/repositories/mocks/user.repository.spy';
+import { UserRepositorySpy } from '../../../../data/repositories/user/user.repository.spy';
 import { RegisterUserServiceError } from '../../errors/register-user.service.error';
-import { PasswordEncrypterSpy } from '../../utils/mocks/password-encrypter.spy';
+import { PasswordEncrypterSpy } from '../../utils/password-encrypter/password-encrypter.spy';
 import { RegisterUserService } from '../register-user.service';
 
 function makeSut() {

@@ -1,6 +1,6 @@
-import { PasswordEncrypter } from './password-encrypter.service';
-import { TokenManager } from './token-manager.service';
-import { UserInputValidator } from './user-input-validator.service';
+import { PasswordEncrypter } from './password-encrypter/password-encrypter.service';
+import { TokenManager } from './token-manager/token-manager.service';
+import { UserInputValidator } from './user-input-validator/user-input-validator.service';
 
 export const get_password_encrypter = (function initializer() {
   let password_encrypter: PasswordEncrypter | undefined;

@@ -1,4 +1,4 @@
-import { IUserInputValidator } from './interfaces/user-input-validator.interface';
+import { IUserInputValidator } from './user-input-validator.interface';
 import validator from 'validator';
 
 export class UserInputValidator implements IUserInputValidator {

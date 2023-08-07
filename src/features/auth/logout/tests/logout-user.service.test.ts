@@ -1,8 +1,8 @@
-import { RefreshStorageMemorySpy } from '../../../../data/repositories/mocks/refresh-storage.memory.spy';
-import { RefreshRepositorySpy } from '../../../../data/repositories/mocks/refresh.repository.spy';
+import { RefreshStorageMemorySpy } from '../../../../data/repositories/refresh-storage/refresh-storage.memory.spy';
+import { RefreshRepositorySpy } from '../../../../data/repositories/refresh/refresh.repository.spy';
 import { InvalidRefreshTokenError } from '../../errors/invalid-refresh-token-error';
 import { LogoutUserServiceError } from '../../errors/logout-user.service.error';
-import { TokenManagerSpy } from '../../utils/mocks/token-manager.spy';
+import { TokenManagerSpy } from '../../utils/token-manager/token-manager.spy';
 import { LogoutUserService } from '../logout-user.service';
 
 function makeSut() {

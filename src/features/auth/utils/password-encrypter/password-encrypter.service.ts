@@ -1,4 +1,4 @@
-import { IPasswordEncrypter } from './interfaces/password-encrypter.interface';
+import { IPasswordEncrypter } from './password-encrypter.interface';
 import bcrypt from 'bcrypt';
 
 export class PasswordEncrypter implements IPasswordEncrypter {

@@ -1,5 +1,5 @@
 import { TRefreshToken } from '../../../models/refresh-token.model';
-import { IRefreshStorageMemory } from '../interfaces/refresh-storage.memory.interface';
+import { IRefreshStorageMemory } from './refresh-storage.memory.interface';
 
 export class RefreshStorageMemorySpy implements IRefreshStorageMemory {
   refresh_data: TRefreshToken = {

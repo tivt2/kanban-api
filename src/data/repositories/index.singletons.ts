@@ -1,6 +1,6 @@
-import { RefreshStorageMemory } from './refresh-storage.memory';
-import { RefreshRepository } from './refresh.repository';
-import { UserRepository } from './user.repository';
+import { RefreshStorageMemory } from './refresh-storage/refresh-storage.memory';
+import { RefreshRepository } from './refresh/refresh.repository';
+import { UserRepository } from './user/user.repository';
 
 export const get_user_repository = (function initializer() {
   let user_repository: UserRepository | undefined;

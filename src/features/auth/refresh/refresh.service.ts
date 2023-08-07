@@ -1,10 +1,10 @@
 import { JsonWebTokenError } from 'jsonwebtoken';
 import { Either } from '../../../shared/either';
 import { RefreshServiceError } from '../errors/refresh.service.error';
-import { ITokenManager } from '../utils/interfaces/token-manager.interface';
+import { ITokenManager } from '../utils/token-manager/token-manager.interface';
 import { InvalidRefreshTokenError } from '../errors/invalid-refresh-token-error';
-import { IRefreshRepository } from '../../../data/repositories/interfaces/refresh.repository.interface';
-import { IRefreshStorageMemory } from '../../../data/repositories/interfaces/refresh-storage.memory.interface';
+import { IRefreshRepository } from '../../../data/repositories/refresh/refresh.repository.interface';
+import { IRefreshStorageMemory } from '../../../data/repositories/refresh-storage/refresh-storage.memory.interface';
 import { PossibleRefreshAttackerError } from '../errors/possible-refresh-attacker-error';
 
 export class RefreshService {

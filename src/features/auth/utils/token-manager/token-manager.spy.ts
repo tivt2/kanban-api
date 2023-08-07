@@ -1,5 +1,5 @@
 import { JsonWebTokenError } from 'jsonwebtoken';
-import { ITokenManager } from '../interfaces/token-manager.interface';
+import { ITokenManager } from './token-manager.interface';
 
 export class TokenManagerSpy implements ITokenManager {
   payload = {};

@@ -1,6 +1,6 @@
 import { InvalidAccessTokenError } from '../../errors/Invalid-access-token-error';
 import { AuthAccessServiceError } from '../../errors/auth-access.service.error';
-import { TokenManagerSpy } from '../../utils/mocks/token-manager.spy';
+import { TokenManagerSpy } from '../../utils/token-manager/token-manager.spy';
 import { AuthAccessService } from '../auth-access.service';
 
 function makeSut() {

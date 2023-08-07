@@ -2,9 +2,9 @@ import { JsonWebTokenError } from 'jsonwebtoken';
 import { Either } from '../../../shared/either';
 import { InvalidRefreshTokenError } from '../errors/invalid-refresh-token-error';
 import { LogoutUserServiceError } from '../errors/logout-user.service.error';
-import { ITokenManager } from '../utils/interfaces/token-manager.interface';
-import { IRefreshStorageMemory } from '../../../data/repositories/interfaces/refresh-storage.memory.interface';
-import { IRefreshRepository } from '../../../data/repositories/interfaces/refresh.repository.interface';
+import { ITokenManager } from '../utils/token-manager/token-manager.interface';
+import { IRefreshStorageMemory } from '../../../data/repositories/refresh-storage/refresh-storage.memory.interface';
+import { IRefreshRepository } from '../../../data/repositories/refresh/refresh.repository.interface';
 
 export class LogoutUserService {
   constructor(

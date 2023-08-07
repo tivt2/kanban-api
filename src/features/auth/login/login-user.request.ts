@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { IUserInputValidator } from '../utils/interfaces/user-input-validator.interface';
+import { IUserInputValidator } from '../utils/user-input-validator/user-input-validator.interface';
 import { InvalidCredentialsError } from '../errors/invalid-credentials-error';
 import { LoginUserRequestError } from '../errors/login-user.request.error';
 import { Either } from '../../../shared/either';

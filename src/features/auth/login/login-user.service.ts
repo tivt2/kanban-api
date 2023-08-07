@@ -1,11 +1,11 @@
-import { IRefreshStorageMemory } from '../../../data/repositories/interfaces/refresh-storage.memory.interface';
-import { IUserRepository } from '../../../data/repositories/interfaces/user.repository.interface';
+import { IRefreshStorageMemory } from '../../../data/repositories/refresh-storage/refresh-storage.memory.interface';
+import { IUserRepository } from '../../../data/repositories/user/user.repository.interface';
 import { Either } from '../../../shared/either';
 import { InvalidCredentialsError } from '../errors/invalid-credentials-error';
 import { LoginUserServiceError } from '../errors/login-user.service.error';
 import { UserNotFoundError } from '../errors/user-not-found-error';
-import { IPasswordEncrypter } from '../utils/interfaces/password-encrypter.interface';
-import { ITokenManager } from '../utils/interfaces/token-manager.interface';
+import { IPasswordEncrypter } from '../utils/password-encrypter/password-encrypter.interface';
+import { ITokenManager } from '../utils/token-manager/token-manager.interface';
 
 export class LoginUserService {
   constructor(

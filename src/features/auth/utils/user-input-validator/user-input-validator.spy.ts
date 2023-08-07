@@ -1,4 +1,4 @@
-import { IUserInputValidator } from '../interfaces/user-input-validator.interface';
+import { IUserInputValidator } from './user-input-validator.interface';
 
 export class UserInputValidatorSpy implements IUserInputValidator {
   email = '';

@@ -1,6 +1,6 @@
-import { TRefreshToken } from '../../models/refresh-token.model';
-import { MinDateHeap } from '../../shared/min-date-heap';
-import { IRefreshStorageMemory } from './interfaces/refresh-storage.memory.interface';
+import { TRefreshToken } from '../../../models/refresh-token.model';
+import { MinDateHeap } from '../../../shared/min-date-heap';
+import { IRefreshStorageMemory } from './refresh-storage.memory.interface';
 
 export class RefreshStorageMemory implements IRefreshStorageMemory {
   private data = new Map<string, TRefreshToken>();
