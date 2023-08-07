@@ -14,10 +14,12 @@ model User {
   id String @id @default(uuid())
   email String @unique
   password String
-  created_at DateTime
-  updated_at DateTime
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
 
   refresh_tokens Refresh[]
+  projects Project[]
+  tasks Task[]
 }
 
 model Refresh {
@@ -27,3 +29,44 @@ model Refresh {
 
   user User @relation(fields: [user_id], references: [id])
 }
+
+model Project {
+  id String @id @default(uuid())
+  title String
+  participants User[]
+  created_at DateTime @default(now())
+}
+
+model Task {
+  id String @id @default(uuid())
+  title String
+  content String
+  status TaskStatus @default(INCOMPLETE)
+
+  created_by String @unique
+  created_at DateTime @default(now())
+
+  updates TaskUpdate[]
+
+  user User @relation(fields: [created_by], references: [id])
+}
+
+model TaskUpdate {
+  id String @id @default(uuid())
+  task_id String
+  title String
+  content String
+  status TaskStatus
+
+  updated_by String
+  updated_at DateTime @default(now())
+
+  task Task @relation(fields: [task_id], references: [id])
+}
+
+enum TaskStatus {
+  INCOMPLETE
+  WORKING
+  COMPLETE  
+}
+
