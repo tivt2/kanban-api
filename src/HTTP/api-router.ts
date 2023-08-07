@@ -1,5 +1,6 @@
 import { Request, Response, Router } from 'express';
 import { get_auth_access_controller } from '../features/auth/auth-access/index.singletons';
+import { project_router } from './project-router';
 
 export const api_router = Router();
 
@@ -11,6 +12,8 @@ api_router.get('/', (req, res) => {
   res.status(200);
   res.json({ message: 'Hello from api' });
 });
+
+api_router.use('/project', project_router);
 
 api_router.use((error: Error, req: Request, res: Response) => {
   res.status(500);
