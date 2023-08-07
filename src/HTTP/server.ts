@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { auth_router } from './auth-router';
+import { api_router } from './api-router';
 
 const app = express();
 
@@ -17,6 +18,8 @@ app.get('/', (_, res) => {
 });
 
 app.use('/auth', auth_router);
+
+app.use('/api', api_router);
 
 app.use((err: Error, req: Request, res: Response) => {
   console.log('Unexpected error: ', err);
