@@ -33,7 +33,7 @@ model Refresh {
 model Project {
   id String @id @default(uuid())
   title String
-  description String
+  description String?
   participants User[]
   created_at DateTime @default(now())
   edited_at DateTime @default(now())
