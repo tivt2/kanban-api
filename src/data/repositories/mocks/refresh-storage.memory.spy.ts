@@ -25,7 +25,7 @@ export class RefreshStorageMemorySpy implements IRefreshStorageMemory {
     if (this.should_get) {
       this.refresh_data = {
         user_id,
-        refresh_token: 'valid_token',
+        refresh_token: 'valid_refresh_token',
         created_at: new Date(),
       };
       return this.refresh_data;

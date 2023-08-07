@@ -1,5 +1,5 @@
-import { TUser } from '../../../models/user.model';
-import prisma from '../prisma-client';
+import { TUser } from '../../../../models/user.model';
+import prisma from '../../prisma-client';
 
 export async function create_user(
   email: string,

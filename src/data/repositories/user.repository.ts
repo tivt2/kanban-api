@@ -1,6 +1,6 @@
 import { TUser } from '../../models/user.model';
-import { create_user } from '../DB/queries/create-user';
-import { find_user_by_email } from '../DB/queries/find-user-by-email';
+import { create_user } from '../DB/prisma-queries/user/create-user';
+import { find_user_by_email } from '../DB/prisma-queries/user/find-user-by-email';
 import { IUserRepository } from './interfaces/user.repository.interface';
 
 export class UserRepository implements IUserRepository {
