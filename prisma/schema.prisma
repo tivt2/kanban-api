@@ -36,7 +36,7 @@ model Project {
   description String?
   participants User[]
   created_at DateTime @default(now())
-  edited_at DateTime @default(now())
+  updated_at DateTime @default(now())
 }
 
 model Task {
