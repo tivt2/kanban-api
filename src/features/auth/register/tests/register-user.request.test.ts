@@ -1,8 +1,8 @@
 import { Request } from 'express';
 import { UserInputValidatorSpy } from '../../utils/mocks/user-input-validator.spy';
 import { RegisterUserRequest } from '../register-user.request';
-import { RegisterUserRequestError } from '../../error-handler/errors/register-user.request.error';
-import { InvalidCredentialsError } from '../../error-handler/errors/invalid-credentials-error';
+import { RegisterUserRequestError } from '../../errors/register-user.request.error';
+import { InvalidCredentialsError } from '../../errors/invalid-credentials-error';
 
 function makeSut() {
   const inputValidatorSpy = new UserInputValidatorSpy();

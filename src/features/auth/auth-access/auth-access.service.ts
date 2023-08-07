@@ -1,8 +1,8 @@
 import { JsonWebTokenError } from 'jsonwebtoken';
 import { Either } from '../../../shared/either';
 import { ITokenManager } from '../utils/interfaces/token-manager.interface';
-import { InvalidAccessTokenError } from '../error-handler/errors/Invalid-access-token-error';
-import { AuthAccessServiceError } from '../error-handler/errors/auth-access.service.error';
+import { InvalidAccessTokenError } from '../errors/Invalid-access-token-error';
+import { AuthAccessServiceError } from '../errors/auth-access.service.error';
 
 export class AuthAccessService {
   constructor(private accessManager: ITokenManager) {}

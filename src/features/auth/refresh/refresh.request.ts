@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import { Either } from '../../../shared/either';
-import { InvalidRefreshTokenError } from '../error-handler/errors/invalid-refresh-token-error';
+import { InvalidRefreshTokenError } from '../errors/invalid-refresh-token-error';
 
 export class RefreshRequest {
   async validate(req: Request): Promise<Either<Error, string>> {

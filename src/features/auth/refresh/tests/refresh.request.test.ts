@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import { RefreshRequest } from '../refresh.request';
-import { InvalidRefreshTokenError } from '../../error-handler/errors/invalid-refresh-token-error';
+import { InvalidRefreshTokenError } from '../../errors/invalid-refresh-token-error';
 
 function makeSut() {
   const sut = new RefreshRequest();

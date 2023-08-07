@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import { AuthAccessRequest } from '../auth-access.request';
-import { InvalidAccessTokenError } from '../../error-handler/errors/Invalid-access-token-error';
+import { InvalidAccessTokenError } from '../../errors/Invalid-access-token-error';
 
 function makeSut() {
   const sut = new AuthAccessRequest();

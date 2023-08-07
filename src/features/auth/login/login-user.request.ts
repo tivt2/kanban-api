@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import { IUserInputValidator } from '../utils/interfaces/user-input-validator.interface';
-import { InvalidCredentialsError } from '../error-handler/errors/invalid-credentials-error';
-import { LoginUserRequestError } from '../error-handler/errors/login-user.request.error';
+import { InvalidCredentialsError } from '../errors/invalid-credentials-error';
+import { LoginUserRequestError } from '../errors/login-user.request.error';
 import { Either } from '../../../shared/either';
 
 export class LoginUserRequest {

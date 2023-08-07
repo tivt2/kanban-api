@@ -1,7 +1,7 @@
 import { JsonWebTokenError } from 'jsonwebtoken';
 import { Either } from '../../../shared/either';
-import { InvalidRefreshTokenError } from '../error-handler/errors/invalid-refresh-token-error';
-import { LogoutUserServiceError } from '../error-handler/errors/logout-user.service.error';
+import { InvalidRefreshTokenError } from '../errors/invalid-refresh-token-error';
+import { LogoutUserServiceError } from '../errors/logout-user.service.error';
 import { ITokenManager } from '../utils/interfaces/token-manager.interface';
 import { IRefreshStorageMemory } from '../../../data/repositories/interfaces/refresh-storage.memory.interface';
 import { IRefreshRepository } from '../../../data/repositories/interfaces/refresh.repository.interface';

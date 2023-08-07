@@ -1,5 +1,5 @@
 import { UserRepositorySpy } from '../../../../data/repositories/mocks/user.repository.spy';
-import { RegisterUserServiceError } from '../../error-handler/errors/register-user.service.error';
+import { RegisterUserServiceError } from '../../errors/register-user.service.error';
 import { PasswordEncrypterSpy } from '../../utils/mocks/password-encrypter.spy';
 import { RegisterUserService } from '../register-user.service';
 

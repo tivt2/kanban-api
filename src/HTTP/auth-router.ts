@@ -27,5 +27,6 @@ auth_router.post('/logout', async (req, res) => {
 });
 
 auth_router.use((error: Error, req: Request, res: Response) => {
+  res.status(500);
   res.json({ message: error.message });
 });

@@ -1,8 +1,8 @@
 import { IUserRepository } from '../../../data/repositories/interfaces/user.repository.interface';
 import { TUser } from '../../../models/user.model';
 import { Either } from '../../../shared/either';
-import { EmailTakenError } from '../error-handler/errors/email-taken-error';
-import { RegisterUserServiceError } from '../error-handler/errors/register-user.service.error';
+import { EmailTakenError } from '../errors/email-taken-error';
+import { RegisterUserServiceError } from '../errors/register-user.service.error';
 import { IPasswordEncrypter } from '../utils/interfaces/password-encrypter.interface';
 
 export class RegisterUserService {
