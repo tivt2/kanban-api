@@ -23,9 +23,14 @@ describe('RegisterUserService', () => {
     };
 
     const user = await sut.register(data.email, data.password);
-    expect(data.email).toBe(userRepoSpy.user.email);
+    const find_user = userRepoSpy.users.find(
+      (user) => user.email === data.email,
+    );
+
+    expect(user.isRight()).toBe(true);
+    expect(data.email).toBe(userRepoSpy.email);
     expect(data.password).toBe(passEncryptSpy.password);
-    expect(user.password).toBe(passEncryptSpy.hashedPassword);
+    expect(user.valueR.password).toBe(passEncryptSpy.hashedPassword);
   });
 
   test('Should throw correct error if helpers throw', async () => {

@@ -2,13 +2,9 @@ import { TUser } from '../../../models/user.model';
 import { IUserRepository } from '../interfaces/user.repository.interface';
 
 export class UserRepositorySpy implements IUserRepository {
-  user: TUser = {
-    id: 'valid_id',
-    email: '',
-    password: '',
-    created_at: new Date(),
-    updated_at: new Date(),
-  };
+  users: TUser[] = [];
+  email: string = '';
+  password: string = '';
   undefined = false;
   shouldThrow = false;
 
@@ -16,9 +12,16 @@ export class UserRepositorySpy implements IUserRepository {
     if (this.shouldThrow) {
       throw new Error();
     }
-    this.user.email = email;
-    this.user.password = password;
-    return this.user;
+    this.users.push({
+      id: 'valid_id',
+      email,
+      password,
+      created_at: new Date(),
+      updated_at: new Date(),
+    });
+    this.email = email;
+    this.password = password;
+    return this.users.slice(-1)[0];
   }
 
   async find_by_email(email: string): Promise<TUser | undefined> {
@@ -28,7 +31,8 @@ export class UserRepositorySpy implements IUserRepository {
     if (this.undefined) {
       return;
     }
-    this.user.email = email;
-    return this.user;
+    this.email = email;
+    const find = this.users.find((user) => user.email === email);
+    return find;
   }
 }

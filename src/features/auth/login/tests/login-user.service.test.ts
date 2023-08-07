@@ -40,8 +40,16 @@ describe('LoginUserService', () => {
       password: 'valid_password',
     };
 
+    userRepoSpy.users.push({
+      id: 'valid_id',
+      email: data.email,
+      password: data.password,
+      created_at: new Date(),
+      updated_at: new Date(),
+    });
     await sut.login(data.email, data.password);
-    expect(data.email).toBe(userRepoSpy.user.email);
+
+    expect(data.email).toBe(userRepoSpy.email);
     expect(data.password).toBe(passEncryptSpy.password);
   });
 
@@ -57,6 +65,14 @@ describe('LoginUserService', () => {
       email: 'valid_email',
       password: 'valid_password',
     };
+
+    userRepoSpy.users.push({
+      id: 'valid_id',
+      email: data.email,
+      password: data.password,
+      created_at: new Date(),
+      updated_at: new Date(),
+    });
 
     userRepoSpy.shouldThrow = true;
     await expect(async () =>
@@ -97,11 +113,19 @@ describe('LoginUserService', () => {
   });
 
   test('Should return correct error if password doesnt match', async () => {
-    const { sut, passEncryptSpy } = makeSut();
+    const { sut, userRepoSpy, passEncryptSpy } = makeSut();
     const data = {
       email: 'valid_email',
       password: 'invalid_password',
     };
+
+    userRepoSpy.users.push({
+      id: 'valid_id',
+      email: data.email,
+      password: data.password,
+      created_at: new Date(),
+      updated_at: new Date(),
+    });
 
     passEncryptSpy.doMatch = false;
     const token = await sut.login(data.email, data.password);
