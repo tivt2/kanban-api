@@ -17,8 +17,9 @@ export class CreateProjectController {
       return;
     }
 
-    const { title, description } = body.valueR;
+    const { user_id, title, description } = body.valueR;
     const created_project = await this.create_project_service.create_project(
+      user_id,
       title,
       description,
     );

@@ -6,6 +6,7 @@ export class ProjectRepositorySpy implements IProjectRepository {
     id: 'any_id',
     title: '',
     description: '',
+    created_by: '',
     participants: [],
     created_at: new Date(),
     updated_at: new Date(),
@@ -17,7 +18,12 @@ export class ProjectRepositorySpy implements IProjectRepository {
 
   should_throw = false;
 
-  async insert(title: string, description?: string): Promise<ProjectModel> {
+  async insert(
+    user_id: string,
+    title: string,
+    description?: string,
+  ): Promise<ProjectModel> {
+    this.user_id = user_id;
     this.title = title;
     this.description = description;
     this.project.title = title;
