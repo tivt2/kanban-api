@@ -1,9 +1,9 @@
-import { TRefreshToken } from '../../../../models/refresh-token.model';
+import { RefreshModel } from '../../../../models/refresh.model';
 import prisma from '../../prisma-client';
 
 export async function create_refresh(
-  refresh_data: TRefreshToken,
-): Promise<TRefreshToken> {
+  refresh_data: RefreshModel,
+): Promise<RefreshModel> {
   try {
     const created_refresh = await prisma.refresh.create({
       data: refresh_data,

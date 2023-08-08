@@ -1,8 +1,8 @@
-import { TRefreshToken } from '../../../models/refresh-token.model';
+import { RefreshModel } from '../../../models/refresh.model';
 
 export interface IRefreshRepository {
-  insert(refresh_data: TRefreshToken): Promise<TRefreshToken>;
-  find_refresh(refresh_token: string): Promise<TRefreshToken | undefined>;
+  insert(refresh_data: RefreshModel): Promise<RefreshModel>;
+  find_refresh(refresh_token: string): Promise<RefreshModel | undefined>;
   delete_all_user_refreshes(user_id: string): Promise<void>;
   delete_expired_refreshes(): Promise<void>;
 }

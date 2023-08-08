@@ -1,8 +1,8 @@
-import { TRefreshToken } from '../../../models/refresh-token.model';
+import { RefreshModel } from '../../../models/refresh.model';
 import { IRefreshStorageMemory } from './refresh-storage.memory.interface';
 
 export class RefreshStorageMemorySpy implements IRefreshStorageMemory {
-  refresh_data: TRefreshToken = {
+  refresh_data: RefreshModel = {
     user_id: '',
     refresh_token: '',
     created_at: new Date(),
@@ -20,7 +20,7 @@ export class RefreshStorageMemorySpy implements IRefreshStorageMemory {
     this.refresh_data = { user_id, refresh_token, created_at };
   }
 
-  async get(user_id: string): Promise<TRefreshToken | undefined> {
+  async get(user_id: string): Promise<RefreshModel | undefined> {
     this.user_id = user_id;
     if (this.should_get) {
       this.refresh_data = {
@@ -33,7 +33,7 @@ export class RefreshStorageMemorySpy implements IRefreshStorageMemory {
     return;
   }
 
-  async remove(user_id: string): Promise<TRefreshToken | undefined> {
+  async remove(user_id: string): Promise<RefreshModel | undefined> {
     return;
   }
 }

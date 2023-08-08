@@ -1,4 +1,4 @@
-import { TRefreshToken } from '../../../models/refresh-token.model';
+import { RefreshModel } from '../../../models/refresh.model';
 import { create_refresh } from '../../DB/prisma-queries/refresh/create-refresh';
 import { delete_refresh_by_created_at } from '../../DB/prisma-queries/refresh/delete-refresh-by-created-at';
 import { delete_user_refreshes_by_user_id } from '../../DB/prisma-queries/refresh/delete-user-refreshses-by-user-id';
@@ -6,15 +6,13 @@ import { find_refresh_by_refresh_token } from '../../DB/prisma-queries/refresh/f
 import { IRefreshRepository } from './refresh.repository.interface';
 
 export class RefreshRepository implements IRefreshRepository {
-  async insert(refresh_data: TRefreshToken): Promise<TRefreshToken> {
+  async insert(refresh_data: RefreshModel): Promise<RefreshModel> {
     const created_refresh_data = await create_refresh(refresh_data);
 
     return created_refresh_data;
   }
 
-  async find_refresh(
-    refresh_token: string,
-  ): Promise<TRefreshToken | undefined> {
+  async find_refresh(refresh_token: string): Promise<RefreshModel | undefined> {
     const refresh_data_from_repo = await find_refresh_by_refresh_token(
       refresh_token,
     );

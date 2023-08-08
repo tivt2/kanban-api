@@ -1,10 +1,10 @@
-import { TUser } from '../../../../models/user.model';
+import { UserModel } from '../../../../models/user.model';
 import prisma from '../../prisma-client';
 
 export async function create_user(
   email: string,
   password: string,
-): Promise<TUser> {
+): Promise<UserModel> {
   try {
     const created_user = await prisma.user.create({
       data: {

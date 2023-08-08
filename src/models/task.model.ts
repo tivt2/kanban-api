@@ -1,25 +1,25 @@
-export enum ETaskStatus {
+export enum TaskStatusModel {
   INCOMPLETE,
   WORKING,
   COMPLETE,
 }
 
-export type TTaskUpdate = {
+export type TaskUpdateModel = {
   id: string;
   task_id: string;
   title: string;
   content: string;
-  status: ETaskStatus;
+  status: TaskStatusModel;
   updated_by: string;
   updated_at: Date;
 };
 
-export type TTask = {
+export type TaskModel = {
   id: string;
   title: string;
   content: string;
-  status: ETaskStatus;
+  status: TaskStatusModel;
   created_by: string;
   created_at: Date;
-  updates: TTaskUpdate[];
+  updates: TaskUpdateModel[];
 };

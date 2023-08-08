@@ -1,5 +1,5 @@
 import { IUserRepository } from '../../../data/repositories/user/user.repository.interface';
-import { TUser } from '../../../models/user.model';
+import { UserModel } from '../../../models/user.model';
 import { Either } from '../../../shared/either';
 import { EmailTakenError } from '../errors/email-taken-error';
 import { RegisterUserServiceError } from '../errors/register-user.service.error';
@@ -14,7 +14,7 @@ export class RegisterUserService {
   async register(
     email: string,
     password: string,
-  ): Promise<Either<Error, TUser>> {
+  ): Promise<Either<Error, UserModel>> {
     try {
       const user = await this.user_repository.find_by_email(email);
       if (user) {

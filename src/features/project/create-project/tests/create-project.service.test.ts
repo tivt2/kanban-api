@@ -1,5 +1,5 @@
 import { ProjectRepositorySpy } from '../../../../data/repositories/project/project.repository.spy';
-import { TUser } from '../../../../models/user.model';
+import { UserModel } from '../../../../models/user.model';
 import { CreateProjectServiceError } from '../../errors/create-project.service.error';
 import { CreateProjectService } from '../create-project.service';
 
@@ -38,7 +38,7 @@ describe('CreateProjectService', () => {
     expect(new_project).toMatchObject({
       ...data,
       id: expect.any(String),
-      participants: expect.any(Array<TUser>),
+      participants: expect.any(Array<UserModel>),
       created_at: expect.any(Date),
       updated_at: expect.any(Date),
     });

@@ -1,10 +1,10 @@
-import { TUser } from './user.model';
+import { UserModel } from './user.model';
 
-export type TProject = {
+export type ProjectModel = {
   id: string;
   title: string;
   description?: string;
-  participants: TUser[];
+  participants: UserModel[];
   created_at: Date;
   updated_at: Date;
 };

@@ -1,9 +1,9 @@
-import { TRefreshToken } from '../../../models/refresh-token.model';
+import { RefreshModel } from '../../../models/refresh.model';
 import { MinDateHeap } from '../../../shared/min-date-heap';
 import { IRefreshStorageMemory } from './refresh-storage.memory.interface';
 
 export class RefreshStorageMemory implements IRefreshStorageMemory {
-  private data = new Map<string, TRefreshToken>();
+  private data = new Map<string, RefreshModel>();
   private min_date_heap = new MinDateHeap();
 
   private timeout = setTimeout(() => {}, 1);
@@ -20,11 +20,11 @@ export class RefreshStorageMemory implements IRefreshStorageMemory {
     this.auto_remove();
   }
 
-  async get(user_id: string): Promise<TRefreshToken | undefined> {
+  async get(user_id: string): Promise<RefreshModel | undefined> {
     return this.data.get(user_id);
   }
 
-  async remove(user_id: string): Promise<TRefreshToken | undefined> {
+  async remove(user_id: string): Promise<RefreshModel | undefined> {
     const out = this.data.get(user_id);
     this.data.delete(user_id);
     this.min_date_heap.remove(user_id);

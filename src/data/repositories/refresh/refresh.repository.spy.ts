@@ -1,22 +1,20 @@
-import { TRefreshToken } from '../../../models/refresh-token.model';
+import { RefreshModel } from '../../../models/refresh.model';
 import { IRefreshRepository } from './refresh.repository.interface';
 
 export class RefreshRepositorySpy implements IRefreshRepository {
-  refresh_data: TRefreshToken = {
+  refresh_data: RefreshModel = {
     refresh_token: '',
     user_id: '',
     created_at: new Date(),
   };
   refresh_token: string = '';
 
-  async insert(refresh_data: TRefreshToken): Promise<TRefreshToken> {
+  async insert(refresh_data: RefreshModel): Promise<RefreshModel> {
     this.refresh_data = refresh_data;
     return refresh_data;
   }
 
-  async find_refresh(
-    refresh_token: string,
-  ): Promise<TRefreshToken | undefined> {
+  async find_refresh(refresh_token: string): Promise<RefreshModel | undefined> {
     this.refresh_token = refresh_token;
     return {
       refresh_token,

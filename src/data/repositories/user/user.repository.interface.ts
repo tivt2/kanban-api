@@ -1,6 +1,6 @@
-import { TUser } from '../../../models/user.model';
+import { UserModel } from '../../../models/user.model';
 
 export interface IUserRepository {
-  insert(email: string, password: string): Promise<TUser>;
-  find_by_email(email: string): Promise<TUser | undefined>;
+  insert(email: string, password: string): Promise<UserModel>;
+  find_by_email(email: string): Promise<UserModel | undefined>;
 }

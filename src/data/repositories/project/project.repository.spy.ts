@@ -1,8 +1,8 @@
-import { TProject } from '../../../models/project.model';
+import { ProjectModel } from '../../../models/project.model';
 import { IProjectRepository } from './project.repository.interface';
 
 export class ProjectRepositorySpy implements IProjectRepository {
-  project: TProject = {
+  project: ProjectModel = {
     id: 'any_id',
     title: '',
     description: '',
@@ -17,7 +17,7 @@ export class ProjectRepositorySpy implements IProjectRepository {
 
   should_throw = false;
 
-  async insert(title: string, description?: string): Promise<TProject> {
+  async insert(title: string, description?: string): Promise<ProjectModel> {
     this.title = title;
     this.description = description;
     this.project.title = title;
