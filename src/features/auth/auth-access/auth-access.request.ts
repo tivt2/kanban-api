@@ -6,7 +6,7 @@ export class AuthAccessRequest {
   constructor() {}
 
   async validate(req: Request): Promise<Either<Error, string>> {
-    const { access_token } = req.body;
+    const access_token = req.headers.authorization;
 
     if (!access_token) {
       return Either.left(new InvalidAccessTokenError());

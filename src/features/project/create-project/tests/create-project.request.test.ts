@@ -1,9 +1,11 @@
 import { InvalidProjectRequestError } from '../../errors/invalid-project-request-error';
+import { RequestValidatorSpy } from '../../utils/request-validator/request-validator.service.spy';
 import { CreateProjectRequest } from '../create-project.request';
 
 function makeSut() {
-  const sut = new CreateProjectRequest();
-  return { sut };
+  const request_validator_spy = new RequestValidatorSpy();
+  const sut = new CreateProjectRequest(request_validator_spy);
+  return { sut, request_validator_spy };
 }
 
 describe('CreateProjectRequest', () => {
@@ -40,13 +42,14 @@ describe('CreateProjectRequest', () => {
   });
 
   test('Should return correct error if body does not match necessary fields', async () => {
-    const { sut } = makeSut();
+    const { sut, request_validator_spy } = makeSut();
     const data = {
       body: {
         description: 'any_description',
       },
     };
 
+    request_validator_spy.validate = false;
     const body = await sut.validate(data);
 
     expect(body.isLeft()).toBe(true);
