@@ -3,7 +3,6 @@ import { CreateProjectController } from '../features/project/create-project/crea
 import { CreateProjectRequest } from '../features/project/create-project/create-project.request';
 import { CreateProjectService } from '../features/project/create-project/create-project.service';
 import { ProjectRepositorySpy } from '../data/repositories/project/project.repository.spy';
-import { RequestValidator } from '../features/shared/request-validator/request-validator.service';
 
 export const project_router = Router();
 
