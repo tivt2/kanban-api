@@ -11,6 +11,8 @@ project_router.get('/', (req, res) => {
   res.json({ message: 'Hello from project' });
 });
 
+project_router.get('/connect/:project_id', async (req, res) => {});
+
 project_router.post('/', async (req, res) => {
   await get_create_project_controller().control(req, res);
 });

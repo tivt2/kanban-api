@@ -1,4 +1,5 @@
 import { ProjectModel } from '../../../models/project.model';
+import { UserModel } from '../../../models/user.model';
 import { IProjectRepository } from './project.repository.interface';
 
 export class ProjectRepositorySpy implements IProjectRepository {
@@ -11,10 +12,20 @@ export class ProjectRepositorySpy implements IProjectRepository {
     created_at: new Date(),
     updated_at: new Date(),
   };
+  user: UserModel = {
+    id: 'valid_id',
+    email: 'valid_email',
+    password: 'valid_password',
+    created_at: new Date(),
+    updated_at: new Date(),
+  };
+
   title = '';
   description: string | undefined = '';
   project_id = '';
   user_id = '';
+
+  invalid_project = false;
 
   should_throw = false;
 
@@ -42,30 +53,51 @@ export class ProjectRepositorySpy implements IProjectRepository {
     title?: string | undefined,
     description?: string | undefined,
   ): Promise<ProjectModel | undefined> {
+    if (this.should_throw) {
+      throw new Error();
+    }
+    if (this.invalid_project) {
+      return;
+    }
     this.project_id = project_id;
     this.user_id = user_id;
     if (title) {
       this.project.title = title;
     }
     this.description = description;
-    return;
+    return this.project;
   }
 
   async add_participants(
     project_id: string,
     user_id: string,
   ): Promise<ProjectModel | undefined> {
+    if (this.should_throw) {
+      throw new Error();
+    }
+    if (this.invalid_project) {
+      return;
+    }
     this.project_id = project_id;
     this.user_id = user_id;
-    return;
+    this.user.id = user_id;
+    this.project.participants.push(this.user);
+    return this.project;
   }
 
   async remove_participants(
     project_id: string,
     user_id: string,
   ): Promise<ProjectModel | undefined> {
+    if (this.should_throw) {
+      throw new Error();
+    }
+    if (this.invalid_project) {
+      return;
+    }
     this.project_id = project_id;
     this.user_id = user_id;
-    return;
+    this.user.id = user_id;
+    return this.project;
   }
 }
