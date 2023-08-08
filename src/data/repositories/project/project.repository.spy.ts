@@ -12,6 +12,8 @@ export class ProjectRepositorySpy implements IProjectRepository {
   };
   title = '';
   description: string | undefined = '';
+  project_id = '';
+  user_id = '';
 
   should_throw = false;
 
@@ -24,5 +26,14 @@ export class ProjectRepositorySpy implements IProjectRepository {
       throw new Error();
     }
     return this.project;
+  }
+
+  async update_participants(
+    project_id: string,
+    user_id: string,
+  ): Promise<void> {
+    this.project_id = project_id;
+    this.user_id = user_id;
+    return;
   }
 }
