@@ -9,7 +9,6 @@ import {
 import {
   get_password_encrypter,
   get_token_manager,
-  get_user_input_validator,
 } from '../utils/index.singletons';
 import { LoginUserController } from './login-user.controller';
 import { LoginUserRequest } from './login-user.request';
@@ -19,7 +18,7 @@ const get_login_user_request = (function initializer() {
   let register_user_request: LoginUserRequest | undefined;
   return function () {
     if (!register_user_request) {
-      register_user_request = new LoginUserRequest(get_user_input_validator());
+      register_user_request = new LoginUserRequest();
 
       return register_user_request;
     }

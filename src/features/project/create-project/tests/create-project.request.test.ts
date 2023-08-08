@@ -1,11 +1,9 @@
-import { InvalidProjectRequestError } from '../../errors/invalid-project-request-error';
-import { RequestValidatorSpy } from '../../utils/request-validator/request-validator.service.spy';
+import { InvalidRequestError } from '../../../shared/errors/invalid-request-error';
 import { CreateProjectRequest } from '../create-project.request';
 
 function makeSut() {
-  const request_validator_spy = new RequestValidatorSpy();
-  const sut = new CreateProjectRequest(request_validator_spy);
-  return { sut, request_validator_spy };
+  const sut = new CreateProjectRequest();
+  return { sut };
 }
 
 describe('CreateProjectRequest', () => {
@@ -26,33 +24,32 @@ describe('CreateProjectRequest', () => {
       },
     };
 
-    const body = await sut.validate(data);
+    const result = await sut.validate(data);
 
-    expect(body.isRight()).toBe(true);
-    expect(body.valueR).toMatchObject(data.body);
+    expect(result.isRight()).toBe(true);
+    expect(result.valueR.body).toMatchObject(data.body);
 
-    const body_without_description = await sut.validate(
+    const result_without_description = await sut.validate(
       data_without_description,
     );
 
-    expect(body_without_description.isRight()).toBe(true);
-    expect(body_without_description.valueR).toMatchObject(
+    expect(result_without_description.isRight()).toBe(true);
+    expect(result_without_description.valueR.body).toMatchObject(
       data_without_description.body,
     );
   });
 
   test('Should return correct error if body does not match necessary fields', async () => {
-    const { sut, request_validator_spy } = makeSut();
+    const { sut } = makeSut();
     const data = {
       body: {
         description: 'any_description',
       },
     };
 
-    request_validator_spy.validate = false;
     const body = await sut.validate(data);
 
     expect(body.isLeft()).toBe(true);
-    expect(body.valueL).toBeInstanceOf(InvalidProjectRequestError);
+    expect(body.valueL).toBeInstanceOf(InvalidRequestError);
   });
 });

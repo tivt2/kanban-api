@@ -1,6 +1,5 @@
 import { PasswordEncrypter } from './password-encrypter/password-encrypter.service';
 import { TokenManager } from './token-manager/token-manager.service';
-import { UserInputValidator } from './user-input-validator/user-input-validator.service';
 
 export const get_password_encrypter = (function initializer() {
   let password_encrypter: PasswordEncrypter | undefined;
@@ -25,18 +24,5 @@ export const get_token_manager = (function initializer() {
     }
 
     return token_manager;
-  };
-})();
-
-export const get_user_input_validator = (function initializer() {
-  let user_input_validator: UserInputValidator | undefined;
-  return function () {
-    if (!user_input_validator) {
-      user_input_validator = new UserInputValidator();
-
-      return user_input_validator;
-    }
-
-    return user_input_validator;
   };
 })();

@@ -17,7 +17,9 @@ export class CreateProjectController {
       return;
     }
 
-    const { user_id, title, description } = body.valueR;
+    const {
+      body: { user_id, title, description },
+    } = body.valueR;
     const created_project = await this.create_project_service.create_project(
       user_id,
       title,
@@ -25,6 +27,6 @@ export class CreateProjectController {
     );
 
     res.status(200);
-    res.json({ message: `Create project ${created_project.title}` });
+    res.json({ message: `Created project ${created_project.title}` });
   }
 }

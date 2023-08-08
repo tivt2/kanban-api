@@ -1,6 +1,5 @@
-import { Request } from 'express';
 import { LogoutUserRequest } from '../logout-user.request';
-import { InvalidRefreshTokenError } from '../../errors/invalid-refresh-token-error';
+import { InvalidRequestError } from '../../../shared/errors/invalid-request-error';
 
 function makeSut() {
   const sut = new LogoutUserRequest();
@@ -14,10 +13,10 @@ describe('LogoutUserRequest', () => {
       cookies: {},
     };
 
-    const refresh_token = await sut.validate(data as Request);
+    const result = await sut.validate(data);
 
-    expect(refresh_token.isLeft()).toBe(true);
-    expect(refresh_token.valueL).toBeInstanceOf(InvalidRefreshTokenError);
+    expect(result.isLeft()).toBe(true);
+    expect(result.valueL).toBeInstanceOf(InvalidRequestError);
   });
 
   test('Should correctly return the refresh_token if refresh_token is present', async () => {
@@ -28,9 +27,9 @@ describe('LogoutUserRequest', () => {
       },
     };
 
-    const refresh_token = await sut.validate(data as Request);
+    const result = await sut.validate(data);
 
-    expect(refresh_token.isRight()).toBe(true);
-    expect(refresh_token.valueR).toBe(data.cookies.refresh_token);
+    expect(result.isRight()).toBe(true);
+    expect(result.valueR.cookies).toMatchObject(data.cookies);
   });
 });

@@ -17,7 +17,10 @@ export class LeaveProjectController {
       return;
     }
 
-    const { project_id, user_id } = leave_project_body.valueR;
+    const {
+      params: { project_id },
+      body: { user_id },
+    } = leave_project_body.valueR;
     await this.leave_project_service.leave_project(project_id, user_id);
 
     res.status(200);

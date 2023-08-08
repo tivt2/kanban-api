@@ -1,50 +1,31 @@
 import { Request } from 'express';
-import { UserInputValidatorSpy } from '../../utils/user-input-validator/user-input-validator.spy';
-import { InvalidCredentialsError } from '../../errors/invalid-credentials-error';
 import { LoginUserRequest } from '../login-user.request';
-import { LoginUserRequestError } from '../../errors/login-user.request.error';
+import { InvalidRequestError } from '../../../shared/errors/invalid-request-error';
 
 function makeSut() {
-  const inputValidatorSpy = new UserInputValidatorSpy();
-  const sut = new LoginUserRequest(inputValidatorSpy);
+  const sut = new LoginUserRequest();
   return {
     sut,
-    inputValidatorSpy,
   };
 }
 
 describe('LoginUserRequest', () => {
-  test('Should correctly pass email and password to helper', async () => {
+  test('Should correctly call with email and password', async () => {
     const { sut } = makeSut();
     const data = {
       body: {
-        email: 'valid_email',
-        password: 'valid_password',
+        email: 'valid_email@email.com',
+        password: 'Valid_password123',
       },
     };
 
-    const body = await sut.validate(data as Request);
-    expect(body.isRight()).toBe(true);
+    const result = await sut.validate(data as Request);
 
-    expect(body.valueR).toMatchObject(data.body);
+    expect(result.isRight()).toBe(true);
+    expect(result.valueR.body).toMatchObject(data.body);
   });
 
-  test('Should throw correct error if helper throw', async () => {
-    const { sut, inputValidatorSpy } = makeSut();
-    const data = {
-      body: {
-        email: 'valid_email',
-        password: 'valid_password',
-      },
-    };
-
-    inputValidatorSpy.shouldThrow = true;
-    await expect(
-      async () => await sut.validate(data as Request),
-    ).rejects.toThrow(LoginUserRequestError);
-  });
-
-  test('Should throw correct error if email of password was not provided', async () => {
+  test('Should return correct error if email of password was not provided', async () => {
     const { sut } = makeSut();
     const data = {
       body: {
@@ -53,14 +34,14 @@ describe('LoginUserRequest', () => {
       },
     };
 
-    const body = await sut.validate(data as Request);
+    const body = await sut.validate(data);
 
     expect(body.isLeft()).toBe(true);
-    expect(body.valueL).toBeInstanceOf(InvalidCredentialsError);
+    expect(body.valueL).toBeInstanceOf(InvalidRequestError);
   });
 
-  test('Should throw correct error if email or password is not valid', async () => {
-    const { sut, inputValidatorSpy } = makeSut();
+  test('Should return correct error if email or password is not valid', async () => {
+    const { sut } = makeSut();
     const data = {
       body: {
         email: 'invalid_email',
@@ -68,10 +49,9 @@ describe('LoginUserRequest', () => {
       },
     };
 
-    inputValidatorSpy.isValid = false;
-    const body = await sut.validate(data as Request);
+    const body = await sut.validate(data);
 
     expect(body.isLeft()).toBe(true);
-    expect(body.valueL).toBeInstanceOf(InvalidCredentialsError);
+    expect(body.valueL).toBeInstanceOf(InvalidRequestError);
   });
 });

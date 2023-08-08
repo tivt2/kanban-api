@@ -1,6 +1,7 @@
 import { Request } from 'express';
 import { AuthAccessRequest } from '../auth-access.request';
 import { InvalidAccessTokenError } from '../../errors/Invalid-access-token-error';
+import { InvalidRequestError } from '../../../shared/errors/invalid-request-error';
 
 function makeSut() {
   const sut = new AuthAccessRequest();
@@ -8,7 +9,7 @@ function makeSut() {
 }
 
 describe('AuthAccessRequest', () => {
-  test('Should return a token if request has a token inside the request body', async () => {
+  test('Should return request if its a valid request', async () => {
     const { sut } = makeSut();
     const data = {
       headers: {
@@ -16,22 +17,24 @@ describe('AuthAccessRequest', () => {
       },
     };
 
-    const access_token = await sut.validate(data as Request);
+    const result = await sut.validate(data);
 
-    expect(access_token.isRight()).toBe(true);
-    expect(access_token.valueR).toBe(data.headers.authorization.split(' ')[1]);
+    expect(result.isRight()).toBe(true);
+    expect(result.valueR.headers.authorization).toBe(
+      data.headers.authorization.split(' ')[1],
+    );
   });
 
-  test('Should return the correct error if request does not have a token inside the request body', async () => {
+  test('Should return the correct error if request does not have authorization inside the request body', async () => {
     const { sut } = makeSut();
     const data = {
       headers: {},
     };
 
-    const access_token = await sut.validate(data as Request);
+    const result = await sut.validate(data);
 
-    expect(access_token.isLeft()).toBe(true);
-    expect(access_token.valueL).toBeInstanceOf(InvalidAccessTokenError);
+    expect(result.isLeft()).toBe(true);
+    expect(result.valueL).toBeInstanceOf(InvalidRequestError);
   });
 
   test('Should return the correct error if token prefix is not Bearer', async () => {
@@ -42,23 +45,23 @@ describe('AuthAccessRequest', () => {
       },
     };
 
-    const access_token = await sut.validate(data as Request);
+    const result = await sut.validate(data);
 
-    expect(access_token.isLeft()).toBe(true);
-    expect(access_token.valueL).toBeInstanceOf(InvalidAccessTokenError);
+    expect(result.isLeft()).toBe(true);
+    expect(result.valueL).toBeInstanceOf(InvalidRequestError);
   });
 
   test('Should return the correct error if token sufix doesnt have a token', async () => {
     const { sut } = makeSut();
     const data = {
       headers: {
-        authorization: 'Bearer',
+        authorization: 'Bearer ',
       },
     };
 
-    const access_token = await sut.validate(data as Request);
+    const result = await sut.validate(data);
 
-    expect(access_token.isLeft()).toBe(true);
-    expect(access_token.valueL).toBeInstanceOf(InvalidAccessTokenError);
+    expect(result.isLeft()).toBe(true);
+    expect(result.valueL).toBeInstanceOf(InvalidRequestError);
   });
 });

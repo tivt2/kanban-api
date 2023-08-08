@@ -1,8 +1,5 @@
 import { get_user_repository } from '../../../data/repositories/index.singletons';
-import {
-  get_password_encrypter,
-  get_user_input_validator,
-} from '../utils/index.singletons';
+import { get_password_encrypter } from '../utils/index.singletons';
 import { RegisterUserController } from './register-user.controller';
 import { RegisterUserRequest } from './register-user.request';
 import { RegisterUserService } from './register-user.service';
@@ -11,9 +8,7 @@ const get_register_user_request = (function initializer() {
   let register_user_request: RegisterUserRequest | undefined;
   return function () {
     if (!register_user_request) {
-      register_user_request = new RegisterUserRequest(
-        get_user_input_validator(),
-      );
+      register_user_request = new RegisterUserRequest();
 
       return register_user_request;
     }

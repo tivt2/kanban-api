@@ -9,15 +9,19 @@ export class LogoutUserController {
   ) {}
 
   async control(req: Request, res: Response) {
-    const refresh_token = await this.logoutRequest.validate(req);
+    const result = await this.logoutRequest.validate(req);
 
-    if (refresh_token.isLeft()) {
+    if (result.isLeft()) {
       res.status(401);
-      res.json({ message: refresh_token.valueL.message });
+      res.json({ message: result.valueL.message });
       return;
     }
 
-    const user_id = await this.logoutService.logout(refresh_token.valueR);
+    const {
+      cookies: { refresh_token },
+    } = result.valueR;
+    const user_id = await this.logoutService.logout(refresh_token);
+
     if (user_id.isLeft()) {
       res.status(403);
       res.json({ message: user_id.valueL.message });

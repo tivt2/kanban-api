@@ -1,6 +1,5 @@
-import { Request } from 'express';
 import { RefreshRequest } from '../refresh.request';
-import { InvalidRefreshTokenError } from '../../errors/invalid-refresh-token-error';
+import { InvalidRequestError } from '../../../shared/errors/invalid-request-error';
 
 function makeSut() {
   const sut = new RefreshRequest();
@@ -8,7 +7,7 @@ function makeSut() {
 }
 
 describe('RefreshRequest', () => {
-  test('Should return correct error if refresh_token is not valid', async () => {
+  test('Should return correct error if request is not valid', async () => {
     const { sut } = makeSut();
     const data = {
       cookies: {
@@ -16,13 +15,13 @@ describe('RefreshRequest', () => {
       },
     };
 
-    const refresh_token = await sut.validate(data as Request);
+    const refresh_token = await sut.validate(data);
 
     expect(refresh_token.isLeft()).toBe(true);
-    expect(refresh_token.valueL).toBeInstanceOf(InvalidRefreshTokenError);
+    expect(refresh_token.valueL).toBeInstanceOf(InvalidRequestError);
   });
 
-  test('Should return refresh_token if refresh_token is valid', async () => {
+  test('Should return request if its a valid request', async () => {
     const { sut } = makeSut();
     const data = {
       cookies: {
@@ -30,9 +29,9 @@ describe('RefreshRequest', () => {
       },
     };
 
-    const refresh_token = await sut.validate(data as Request);
+    const refresh_token = await sut.validate(data);
 
     expect(refresh_token.isRight()).toBe(true);
-    expect(refresh_token.valueR).toBe(data.cookies.refresh_token);
+    expect(refresh_token.valueR.cookies).toMatchObject(data.cookies);
   });
 });

@@ -9,14 +9,16 @@ export class RegisterUserController {
   ) {}
 
   async control(req: Request, res: Response) {
-    const body = await this.register_request.validate(req);
-    if (body.isLeft()) {
+    const result = await this.register_request.validate(req);
+    if (result.isLeft()) {
       res.status(401);
-      res.json({ message: body.valueL.message });
+      res.json({ message: result.valueL.message });
       return;
     }
 
-    const { email, password } = body.valueR;
+    const {
+      body: { email, password },
+    } = result.valueR;
     const user = await this.register_service.register(email, password);
 
     if (user.isLeft()) {

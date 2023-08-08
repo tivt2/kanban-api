@@ -1,23 +1,22 @@
-import { Request } from 'express';
-import { Either } from '../../../shared/either';
-import { InvalidAccessTokenError } from '../errors/Invalid-access-token-error';
+import { RequestValidator } from '../../shared/request-validator/request-validator.service';
+import { z } from 'zod';
 
-export class AuthAccessRequest {
-  constructor() {}
+const user_auth_access_schema = z.object({
+  headers: z.object({
+    authorization: z
+      .string({ required_error: 'Invalid token' })
+      .refine((token) => {
+        const bearer = token.substring(7);
+        return token.startsWith('Bearer ') && bearer.length > 0;
+      }, 'Invalid token')
+      .transform((bearer) => bearer.substring(7)),
+  }),
+});
 
-  async validate(req: Request): Promise<Either<Error, string>> {
-    const access_token = req.headers.authorization;
+type RequestResultAuthAccess = z.infer<typeof user_auth_access_schema>;
 
-    if (!access_token) {
-      return Either.left(new InvalidAccessTokenError());
-    }
-
-    const [bearer, token] = access_token.split(' ');
-
-    if (bearer !== 'Bearer' || !token) {
-      return Either.left(new InvalidAccessTokenError());
-    }
-
-    return Either.right(token);
+export class AuthAccessRequest extends RequestValidator<RequestResultAuthAccess> {
+  constructor() {
+    super(user_auth_access_schema);
   }
 }

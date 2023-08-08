@@ -1,15 +1,11 @@
-import { Request } from 'express';
-import { Either } from '../../../shared/either';
-import { InvalidRefreshTokenError } from '../errors/invalid-refresh-token-error';
+import { RequestValidator } from '../../shared/request-validator/request-validator.service';
+import {
+  RequestResultRefreshLogout,
+  user_refresh_logout_schema,
+} from '../schemas/user-refresh-logout-schema';
 
-export class RefreshRequest {
-  async validate(req: Request): Promise<Either<Error, string>> {
-    const { refresh_token } = req.cookies;
-
-    if (!refresh_token) {
-      return Either.left(new InvalidRefreshTokenError());
-    }
-
-    return Either.right(refresh_token);
+export class RefreshRequest extends RequestValidator<RequestResultRefreshLogout> {
+  constructor() {
+    super(user_refresh_logout_schema);
   }
 }
