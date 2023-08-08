@@ -11,13 +11,13 @@ export class CreateProjectService {
     description?: string,
   ): Promise<ProjectModel> {
     try {
-      const new_project = await this.project_repository.create_project(
+      const project = await this.project_repository.create_project(
         user_id,
         title,
         description,
       );
 
-      return new_project;
+      return project;
     } catch {
       throw new CreateProjectServiceError();
     }

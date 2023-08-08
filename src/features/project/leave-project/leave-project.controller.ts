@@ -8,7 +8,7 @@ export class LeaveProjectController {
     private leave_project_service: LeaveProjectService,
   ) {}
 
-  async controle(req: Request, res: Response) {
+  async control(req: Request, res: Response) {
     const leave_project_body = await this.leave_project_request.validate(req);
 
     if (leave_project_body.isLeft()) {
@@ -21,9 +21,18 @@ export class LeaveProjectController {
       params: { project_id },
       body: { user_id },
     } = leave_project_body.valueR;
-    await this.leave_project_service.leave_project(project_id, user_id);
+    const project = await this.leave_project_service.leave_project(
+      project_id,
+      user_id,
+    );
+
+    if (project.isLeft()) {
+      res.status(401);
+      res.json({ message: project.valueL.message });
+      return;
+    }
 
     res.status(200);
-    res.json({ message: `Left from project ${project_id}` });
+    res.json({ message: `Left from project ${project.valueR.title}` });
   }
 }

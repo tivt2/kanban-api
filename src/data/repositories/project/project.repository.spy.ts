@@ -18,7 +18,7 @@ export class ProjectRepositorySpy implements IProjectRepository {
 
   should_throw = false;
 
-  async insert(
+  async create_project(
     user_id: string,
     title: string,
     description?: string,
@@ -36,10 +36,34 @@ export class ProjectRepositorySpy implements IProjectRepository {
     return this.project;
   }
 
-  async update_participants(
+  async edit_project(
     project_id: string,
     user_id: string,
-  ): Promise<void> {
+    title?: string | undefined,
+    description?: string | undefined,
+  ): Promise<ProjectModel | undefined> {
+    this.project_id = project_id;
+    this.user_id = user_id;
+    if (title) {
+      this.project.title = title;
+    }
+    this.description = description;
+    return;
+  }
+
+  async add_participants(
+    project_id: string,
+    user_id: string,
+  ): Promise<ProjectModel | undefined> {
+    this.project_id = project_id;
+    this.user_id = user_id;
+    return;
+  }
+
+  async remove_participants(
+    project_id: string,
+    user_id: string,
+  ): Promise<ProjectModel | undefined> {
     this.project_id = project_id;
     this.user_id = user_id;
     return;

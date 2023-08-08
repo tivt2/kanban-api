@@ -1,22 +1,30 @@
 import { Request, Response, Router } from 'express';
-import { CreateProjectController } from '../features/project/create-project/create-project.controller';
-import { CreateProjectRequest } from '../features/project/create-project/create-project.request';
-import { CreateProjectService } from '../features/project/create-project/create-project.service';
-import { ProjectRepositorySpy } from '../data/repositories/project/project.repository.spy';
+import { get_leave_project_controller } from '../features/project/leave-project/index.singletons';
+import { get_create_project_controller } from '../features/project/create-project/index.singletons';
+import { get_join_project_controller } from '../features/project/join-project/index.singletons';
+import { get_edit_project_controller } from '../features/project/edit-project/index.singletons';
 
 export const project_router = Router();
 
-// project_router.get('/', (req, res) => {
-//   res.status(200);
-//   res.json({ message: 'Hello from project' });
-// });
+project_router.get('/', (req, res) => {
+  res.status(200);
+  res.json({ message: 'Hello from project' });
+});
 
-project_router.get('/', async (req, res) => {
-  const sut = new CreateProjectController(
-    new CreateProjectRequest(),
-    new CreateProjectService(new ProjectRepositorySpy()),
-  );
-  await sut.control(req, res);
+project_router.post('/', async (req, res) => {
+  await get_create_project_controller().control(req, res);
+});
+
+project_router.put('/join/:project_id', async (req, res) => {
+  await get_join_project_controller().control(req, res);
+});
+
+project_router.put('/leave/:project_id', async (req, res) => {
+  await get_leave_project_controller().control(req, res);
+});
+
+project_router.put('/:project_id', async (req, res) => {
+  await get_edit_project_controller().control(req, res);
 });
 
 project_router.use((error: Error, req: Request, res: Response) => {

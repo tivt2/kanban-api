@@ -2,6 +2,7 @@ import { IProjectRepository } from '../../../data/repositories/project/project.r
 import { ProjectModel } from '../../../models/project.model';
 import { Either } from '../../../shared/either';
 import { InvalidProjectError } from '../errors/invalid-project-error';
+import { JoinProjectServiceError } from '../errors/join-project-service.error';
 
 export class JoinProjectService {
   constructor(private project_repository: IProjectRepository) {}
@@ -10,15 +11,19 @@ export class JoinProjectService {
     project_id: string,
     user_id: string,
   ): Promise<Either<Error, ProjectModel>> {
-    const project = await this.project_repository.add_participants(
-      project_id,
-      user_id,
-    );
+    try {
+      const project = await this.project_repository.add_participants(
+        project_id,
+        user_id,
+      );
 
-    if (!project) {
-      Either.left(new InvalidProjectError());
+      if (!project) {
+        return Either.left(new InvalidProjectError());
+      }
+
+      return Either.right(project);
+    } catch {
+      throw new JoinProjectServiceError();
     }
-
-    return Either.right(project);
   }
 }

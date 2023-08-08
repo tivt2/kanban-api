@@ -1,6 +1,7 @@
 import { IProjectRepository } from '../../../data/repositories/project/project.repository.interface';
 import { ProjectModel } from '../../../models/project.model';
 import { Either } from '../../../shared/either';
+import { EditProjectServiceError } from '../errors/edit-project.service.error';
 import { InvalidProjectError } from '../errors/invalid-project-error';
 
 export class EditProjectService {
@@ -12,17 +13,21 @@ export class EditProjectService {
     title?: string,
     description?: string,
   ): Promise<Either<Error, ProjectModel>> {
-    const project = await this.project_repository.edit_project(
-      project_id,
-      user_id,
-      title,
-      description,
-    );
+    try {
+      const project = await this.project_repository.edit_project(
+        project_id,
+        user_id,
+        title,
+        description,
+      );
 
-    if (!project) {
-      return Either.left(new InvalidProjectError());
+      if (!project) {
+        return Either.left(new InvalidProjectError());
+      }
+
+      return Either.right(project);
+    } catch {
+      throw new EditProjectServiceError();
     }
-
-    return Either.right(project);
   }
 }

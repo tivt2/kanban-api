@@ -1,3 +1,4 @@
+import { ProjectRepository } from './project/project.respository';
 import { RefreshStorageMemory } from './refresh-storage/refresh-storage.memory';
 import { RefreshRepository } from './refresh/refresh.repository';
 import { UserRepository } from './user/user.repository';
@@ -38,5 +39,18 @@ export const get_refresh_repository = (function initializer() {
     }
 
     return refresh_repository;
+  };
+})();
+
+export const get_project_repository = (function initializer() {
+  let project_repository: ProjectRepository | undefined;
+  return function () {
+    if (!project_repository) {
+      project_repository = new ProjectRepository();
+
+      return project_repository;
+    }
+
+    return project_repository;
   };
 })();
