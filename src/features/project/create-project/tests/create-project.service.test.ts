@@ -27,17 +27,24 @@ describe('CreateProjectService', () => {
   });
 
   test('Should correctly pass arguments to helpers', async () => {
-    const { sut, project_repository } = makeSut();
+    const { sut } = makeSut();
     const data = {
+      user_id: 'valid_id',
       title: 'any_title',
       description: 'any_description',
     };
 
-    const new_project = await sut.create_project(data.title, data.description);
+    const new_project = await sut.create_project(
+      data.user_id,
+      data.title,
+      data.description,
+    );
 
     expect(new_project).toMatchObject({
-      ...data,
       id: expect.any(String),
+      title: data.title,
+      description: data.description,
+      created_by: data.user_id,
       participants: expect.any(Array<UserModel>),
       created_at: expect.any(Date),
       updated_at: expect.any(Date),

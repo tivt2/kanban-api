@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { Either } from '../../../shared/either';
-import { InvalidProjectDataError } from '../errors/invalid-project-data-error';
+import { InvalidProjectRequestError } from '../errors/invalid-project-request-error';
 
 const create_project_request_schema = z.object({
   body: z.object({
@@ -13,13 +13,24 @@ const create_project_request_schema = z.object({
   }),
 });
 
-type Request = z.infer<typeof create_project_request_schema>;
+type KnownRequest = z.infer<typeof create_project_request_schema>;
+
+type UnkownRequest = {
+  body: {
+    [key: string]: any;
+  };
+};
 
 export class CreateProjectRequest {
-  async validate(req: Request): Promise<Either<Error, Request['body']>> {
+  async validate(
+    req: UnkownRequest,
+  ): Promise<Either<Error, KnownRequest['body']>> {
     const req_parsed = create_project_request_schema.safeParse(req);
+
     if (!req_parsed.success) {
-      return Either.left(new InvalidProjectDataError());
+      return Either.left(
+        new InvalidProjectRequestError(req_parsed.error.message),
+      );
     }
 
     const { user_id, title, description } = req_parsed.data.body;

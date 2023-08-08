@@ -1,4 +1,4 @@
-import { InvalidProjectDataError } from '../../errors/invalid-project-data-error';
+import { InvalidProjectRequestError } from '../../errors/invalid-project-request-error';
 import { CreateProjectRequest } from '../create-project.request';
 
 function makeSut() {
@@ -11,6 +11,7 @@ describe('CreateProjectRequest', () => {
     const { sut } = makeSut();
     const data = {
       body: {
+        user_id: 'valid_id',
         title: 'any_title',
         description: 'any_description',
       },
@@ -18,6 +19,7 @@ describe('CreateProjectRequest', () => {
 
     const data_without_description = {
       body: {
+        user_id: 'valid_id',
         title: 'any_title',
       },
     };
@@ -48,6 +50,6 @@ describe('CreateProjectRequest', () => {
     const body = await sut.validate(data);
 
     expect(body.isLeft()).toBe(true);
-    expect(body.valueL).toBeInstanceOf(InvalidProjectDataError);
+    expect(body.valueL).toBeInstanceOf(InvalidProjectRequestError);
   });
 });

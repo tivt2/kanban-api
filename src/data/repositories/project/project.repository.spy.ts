@@ -26,6 +26,8 @@ export class ProjectRepositorySpy implements IProjectRepository {
     this.user_id = user_id;
     this.title = title;
     this.description = description;
+
+    this.project.created_by = user_id;
     this.project.title = title;
     this.project.description = description;
     if (this.should_throw) {
