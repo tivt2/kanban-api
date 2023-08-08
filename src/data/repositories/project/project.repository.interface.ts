@@ -6,9 +6,18 @@ export interface IProjectRepository {
     title: string,
     description?: string,
   ): Promise<ProjectModel>;
+  edit_project(
+    project_id: string,
+    user_id: string,
+    title?: string,
+    description?: string,
+  ): Promise<ProjectModel | undefined>;
   remove_participants(
     project_id: string,
     user_id: string,
-  ): Promise<ProjectModel>;
-  add_participants(project_id: string, user_id: string): Promise<ProjectModel>;
+  ): Promise<ProjectModel | undefined>;
+  add_participants(
+    project_id: string,
+    user_id: string,
+  ): Promise<ProjectModel | undefined>;
 }
