@@ -2,6 +2,13 @@ import { ProjectModel } from '../../../models/project.model';
 import { IProjectRepository } from './project.repository.interface';
 
 export class ProjectRepository implements IProjectRepository {
+  async get_project(
+    project_id: string,
+    user_id: string,
+  ): Promise<ProjectModel | undefined> {
+    return {} as ProjectModel;
+  }
+
   async create_project(
     user_id: string,
     title: string,

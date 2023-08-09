@@ -29,6 +29,23 @@ export class ProjectRepositorySpy implements IProjectRepository {
 
   should_throw = false;
 
+  async get_project(
+    project_id: string,
+    user_id: string,
+  ): Promise<ProjectModel | undefined> {
+    if (this.should_throw) {
+      throw new Error();
+    }
+    if (this.invalid_project) {
+      return;
+    }
+    this.project_id = project_id;
+    this.user_id = user_id;
+    this.user.id = user_id;
+    this.project.participants.push(this.user);
+    return this.project;
+  }
+
   async create_project(
     user_id: string,
     title: string,
