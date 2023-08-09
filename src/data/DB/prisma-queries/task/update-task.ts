@@ -19,12 +19,29 @@ export async function update_task(
         return null;
       }
 
+      const old_task = await tx.task.findUnique({
+        where: { id: task_id },
+        select: { title: true, content: true, status: true },
+      });
+
+      if (!old_task) {
+        return null;
+      }
+      const update = {
+        task_id,
+        updated_by: user_id,
+        ...old_task,
+      };
+
       const task = await tx.task.update({
         where: { id: task_id },
         data: {
           title,
           content,
           status,
+          updates: {
+            create: update,
+          },
         },
         include: { updates: true },
       });

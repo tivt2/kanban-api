@@ -1,7 +1,7 @@
 import { Request, Response, Router } from 'express';
 import { get_auth_access_controller } from '../features/auth/auth-access/index.singletons';
 import { project_router } from './project-router';
-import { task_router } from './task-router';
+import { user_router } from './user-router';
 
 export const api_router = Router();
 
@@ -16,7 +16,7 @@ api_router.get('/', (req, res) => {
 
 api_router.use('/project', project_router);
 
-api_router.use('/tasks', task_router);
+api_router.use('/user', user_router);
 
 api_router.use((error: Error, req: Request, res: Response) => {
   res.status(500);
