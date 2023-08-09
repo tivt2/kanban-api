@@ -1,6 +1,7 @@
 import { ITaskRepository } from '../../../data/repositories/task/task.repository.interface';
 import { TaskModel, TaskStatusModel } from '../../../models/task.model';
 import { Either } from '../../../shared/either';
+import { EditTaskServiceError } from '../errors/edit-task.service.error';
 import { InvalidTaskError } from '../errors/invalid-task-error';
 
 export class EditTaskService {
@@ -14,19 +15,23 @@ export class EditTaskService {
     content?: string,
     status?: TaskStatusModel,
   ): Promise<Either<Error, TaskModel>> {
-    const task = await this.task_repository.update_task(
-      project_id,
-      user_id,
-      task_id,
-      title,
-      content,
-      status,
-    );
+    try {
+      const task = await this.task_repository.update_task(
+        project_id,
+        user_id,
+        task_id,
+        title,
+        content,
+        status,
+      );
 
-    if (!task) {
-      return Either.left(new InvalidTaskError());
+      if (!task) {
+        return Either.left(new InvalidTaskError());
+      }
+
+      return Either.right(task);
+    } catch {
+      throw new EditTaskServiceError();
     }
-
-    return Either.right(task);
   }
 }
