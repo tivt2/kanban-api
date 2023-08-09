@@ -29,7 +29,13 @@ export class CreateTaskController {
       status,
     );
 
+    if (task.isLeft()) {
+      res.status(401);
+      res.json({ message: task.valueL.message });
+      return;
+    }
+
     res.status(200);
-    res.json({ task });
+    res.json({ task: task.valueR });
   }
 }

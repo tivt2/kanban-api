@@ -1,6 +1,7 @@
 import { ITaskRepository } from '../../../data/repositories/task/task.repository.interface';
 import { TaskModel, TaskStatusModel } from '../../../models/task.model';
 import { Either } from '../../../shared/either';
+import { InvalidProjectError } from '../../project/errors/invalid-project-error';
 import { CreateTaskServiceError } from '../errors/create-task.service.error';
 
 export class CreateTaskService {
@@ -12,7 +13,7 @@ export class CreateTaskService {
     title: string,
     content: string,
     status: TaskStatusModel,
-  ): Promise<TaskModel> {
+  ): Promise<Either<Error, TaskModel>> {
     try {
       const task = await this.task_repository.create_task(
         project_id,
@@ -22,7 +23,11 @@ export class CreateTaskService {
         status,
       );
 
-      return task;
+      if (!task) {
+        return Either.left(new InvalidProjectError());
+      }
+
+      return Either.right(task);
     } catch {
       throw new CreateTaskServiceError();
     }
