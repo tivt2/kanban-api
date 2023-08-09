@@ -1,6 +1,7 @@
 import { ProjectRepository } from './project/project.respository';
 import { RefreshStorageMemory } from './refresh-storage/refresh-storage.memory';
 import { RefreshRepository } from './refresh/refresh.repository';
+import { TaskRepository } from './task/task.repository';
 import { UserRepository } from './user/user.repository';
 
 export const get_user_repository = (function initializer() {
@@ -52,5 +53,18 @@ export const get_project_repository = (function initializer() {
     }
 
     return project_repository;
+  };
+})();
+
+export const get_task_repository = (function initializer() {
+  let task_repository: TaskRepository | undefined;
+  return function () {
+    if (!task_repository) {
+      task_repository = new TaskRepository();
+
+      return task_repository;
+    }
+
+    return task_repository;
   };
 })();

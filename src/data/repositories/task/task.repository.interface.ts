@@ -8,4 +8,9 @@ export interface ITaskRepository {
     content: string,
     status: TaskStatusModel,
   ): Promise<TaskModel>;
+  delete_task(
+    project_id: string,
+    user_id: string,
+    task_id: string,
+  ): Promise<TaskModel | undefined>;
 }
