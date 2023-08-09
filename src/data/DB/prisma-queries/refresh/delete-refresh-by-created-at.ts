@@ -11,7 +11,7 @@ export async function delete_refresh_by_created_at(): Promise<void> {
       },
     });
   } catch {
-    prisma.$disconnect();
-    process.exit(1);
+    await prisma.$disconnect();
+    return;
   }
 }

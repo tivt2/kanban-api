@@ -16,11 +16,11 @@ export interface IProjectRepository {
     title?: string,
     description?: string,
   ): Promise<ProjectModel | undefined>;
-  remove_participants(
+  remove_participant(
     project_id: string,
     user_id: string,
   ): Promise<ProjectModel | undefined>;
-  add_participants(
+  add_participant(
     project_id: string,
     user_id: string,
   ): Promise<ProjectModel | undefined>;

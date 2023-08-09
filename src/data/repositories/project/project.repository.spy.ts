@@ -49,7 +49,7 @@ export class ProjectRepositorySpy implements IProjectRepository {
   async create_project(
     user_id: string,
     title: string,
-    description?: string,
+    description: string,
   ): Promise<ProjectModel> {
     this.user_id = user_id;
     this.title = title;
@@ -81,11 +81,13 @@ export class ProjectRepositorySpy implements IProjectRepository {
     if (title) {
       this.project.title = title;
     }
-    this.description = description;
+    if (description) {
+      this.description = description;
+    }
     return this.project;
   }
 
-  async add_participants(
+  async add_participant(
     project_id: string,
     user_id: string,
   ): Promise<ProjectModel | undefined> {
@@ -102,7 +104,7 @@ export class ProjectRepositorySpy implements IProjectRepository {
     return this.project;
   }
 
-  async remove_participants(
+  async remove_participant(
     project_id: string,
     user_id: string,
   ): Promise<ProjectModel | undefined> {

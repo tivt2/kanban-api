@@ -14,7 +14,7 @@ export class CreateProjectService {
       const project = await this.project_repository.create_project(
         user_id,
         title,
-        description,
+        description ?? '',
       );
 
       return project;

@@ -12,6 +12,6 @@ export async function create_refresh(
     return created_refresh;
   } catch (err) {
     await prisma.$disconnect();
-    process.exit(1);
+    return {} as RefreshModel;
   }
 }

@@ -12,7 +12,7 @@ export class JoinProjectService {
     user_id: string,
   ): Promise<Either<Error, ProjectModel>> {
     try {
-      const project = await this.project_repository.add_participants(
+      const project = await this.project_repository.add_participant(
         project_id,
         user_id,
       );

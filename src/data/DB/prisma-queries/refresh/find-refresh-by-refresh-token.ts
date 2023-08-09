@@ -12,6 +12,6 @@ export async function find_refresh_by_refresh_token(
     return refresh;
   } catch (err) {
     await prisma.$disconnect();
-    process.exit(1);
+    return null;
   }
 }

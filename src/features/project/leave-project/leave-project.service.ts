@@ -12,7 +12,7 @@ export class LeaveProjectService {
     user_id: string,
   ): Promise<Either<Error, ProjectModel>> {
     try {
-      const project = await this.project_repository.remove_participants(
+      const project = await this.project_repository.remove_participant(
         project_id,
         user_id,
       );

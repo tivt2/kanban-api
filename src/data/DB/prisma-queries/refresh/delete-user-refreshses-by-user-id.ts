@@ -6,7 +6,7 @@ export async function delete_user_refreshes_by_user_id(
   try {
     await prisma.refresh.deleteMany({ where: { user_id } });
   } catch {
-    prisma.$disconnect();
-    process.exit(1);
+    await prisma.$disconnect();
+    return;
   }
 }
