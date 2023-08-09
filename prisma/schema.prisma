@@ -35,13 +35,16 @@ model Project {
   title String
   description String
   created_by String
-  participants User[]
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
+
+  participants User[]
+  tasks Task[]
 }
 
 model Task {
   id String @id @default(uuid())
+  project_id String
   title String
   content String
   status TaskStatus @default(INCOMPLETE)
@@ -52,6 +55,7 @@ model Task {
   updates TaskUpdate[]
 
   user User @relation(fields: [created_by], references: [id])
+  project Project @relation(fields: [project_id], references: [id])
 }
 
 model TaskUpdate {

@@ -5,6 +5,9 @@ import { get_join_project_controller } from '../features/project/join-project/in
 import { get_edit_project_controller } from '../features/project/edit-project/index.singletons';
 import { get_connect_project_controller } from '../features/project/connect-to-project/index.singletons';
 import { task_router } from './task-router';
+import { get_create_task_controller } from '../features/task/create-task/index.singletons';
+import { get_edit_task_controller } from '../features/task/edit-task/index.singletons';
+import { get_delete_task_controller } from '../features/task/delete-task/index.singletons';
 
 export const project_router = Router();
 
@@ -33,7 +36,17 @@ project_router.put('/:project_id', async (req, res) => {
   await get_edit_project_controller().control(req, res);
 });
 
-project_router.use('/:project_id/task', task_router);
+project_router.post('/:project_id', async (req, res) => {
+  await get_create_task_controller().control(req, res);
+});
+
+project_router.put('/:project_id/:task_id', async (req, res) => {
+  await get_edit_task_controller().control(req, res);
+});
+
+project_router.delete('/:project_id/:task_id', async (req, res) => {
+  await get_delete_task_controller().control(req, res);
+});
 
 project_router.use((error: Error, req: Request, res: Response) => {
   res.status(500);
