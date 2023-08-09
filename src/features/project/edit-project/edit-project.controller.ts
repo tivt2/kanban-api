@@ -36,6 +36,6 @@ export class EditProjectController {
     }
 
     res.status(200);
-    res.json({ project });
+    res.json({ project: project.valueR });
   }
 }

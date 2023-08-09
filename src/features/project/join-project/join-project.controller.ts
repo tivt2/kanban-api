@@ -33,6 +33,6 @@ export class JoinProjectController {
     }
 
     res.status(200);
-    res.json({ project });
+    res.json({ project: project.valueR });
   }
 }
