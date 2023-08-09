@@ -7,12 +7,9 @@ import { InvalidTaskError } from '../errors/invalid-task-error';
 export class GetTasksService {
   constructor(private task_repository: ITaskRepository) {}
 
-  async get_tasks(
-    project_id: string,
-    user_id: string,
-  ): Promise<Either<Error, TaskModel[]>> {
+  async get_tasks(user_id: string): Promise<Either<Error, TaskModel[]>> {
     try {
-      const tasks = await this.task_repository.get_tasks(project_id, user_id);
+      const tasks = await this.task_repository.get_tasks(user_id);
 
       if (!tasks) {
         return Either.left(new InvalidTaskError());

@@ -18,10 +18,9 @@ export class GetTasksController {
     }
 
     const {
-      params: { project_id },
       body: { user_id },
     } = result.valueR;
-    const task = await this.get_tasks_service.get_tasks(project_id, user_id);
+    const task = await this.get_tasks_service.get_tasks(user_id);
 
     if (task.isLeft()) {
       res.status(401);

@@ -21,8 +21,5 @@ export interface ITaskRepository {
     content?: string,
     status?: TaskStatusModel,
   ): Promise<TaskModel | undefined>;
-  get_tasks(
-    project_id: string,
-    user_id: string,
-  ): Promise<TaskModel[] | undefined>;
+  get_tasks(user_id: string): Promise<TaskModel[] | undefined>;
 }

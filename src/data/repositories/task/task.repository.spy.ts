@@ -31,10 +31,7 @@ export class TaskRepositorySpy implements ITaskRepository {
     return;
   }
 
-  async get_tasks(
-    project_id: string,
-    user_id: string,
-  ): Promise<TaskModel[] | undefined> {
+  async get_tasks(user_id: string): Promise<TaskModel[] | undefined> {
     return [];
   }
 }
