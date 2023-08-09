@@ -4,6 +4,7 @@ import { get_create_project_controller } from '../features/project/create-projec
 import { get_join_project_controller } from '../features/project/join-project/index.singletons';
 import { get_edit_project_controller } from '../features/project/edit-project/index.singletons';
 import { get_connect_project_controller } from '../features/project/connect-to-project/index.singletons';
+import { task_router } from './task-router';
 
 export const project_router = Router();
 
@@ -31,6 +32,8 @@ project_router.put('/leave/:project_id', async (req, res) => {
 project_router.put('/:project_id', async (req, res) => {
   await get_edit_project_controller().control(req, res);
 });
+
+project_router.use('/:project_id/task', task_router);
 
 project_router.use((error: Error, req: Request, res: Response) => {
   res.status(500);

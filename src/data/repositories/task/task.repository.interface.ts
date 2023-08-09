@@ -1,1 +1,11 @@
-export interface ITaskRepository {}
+import { TaskModel, TaskStatusModel } from '../../../models/task.model';
+
+export interface ITaskRepository {
+  create_task(
+    project_id: string,
+    user_id: string,
+    title: string,
+    content: string,
+    status: TaskStatusModel,
+  ): Promise<TaskModel>;
+}
