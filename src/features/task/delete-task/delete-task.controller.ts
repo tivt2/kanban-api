@@ -37,7 +37,7 @@ export class DeleteTaskController {
 
     this.pub_sub_project_service.publish(project_id, {
       type: 'DELETE',
-      change: task.valueR.id,
+      change: task.valueR,
     });
     res.status(200);
     res.json({ task: task.valueR });
