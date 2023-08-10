@@ -16,6 +16,7 @@ export async function create_project(
       },
       include: {
         participants: true,
+        tasks: true,
       },
     });
 

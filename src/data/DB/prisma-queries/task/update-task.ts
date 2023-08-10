@@ -12,7 +12,11 @@ export async function update_task(
   try {
     const task = await prisma.$transaction(async (tx) => {
       const project = await tx.project.findUnique({
-        where: { id: project_id, participants: { some: { id: user_id } } },
+        where: {
+          id: project_id,
+          participants: { some: { id: user_id } },
+          tasks: { some: { id: task_id } },
+        },
       });
 
       if (!project) {
@@ -28,7 +32,6 @@ export async function update_task(
         return null;
       }
       const update_task = {
-        // task_id,
         updated_by: user_id,
         ...old_task,
       };

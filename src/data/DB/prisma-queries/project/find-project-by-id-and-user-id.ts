@@ -17,6 +17,7 @@ export async function find_project_by_id_and_user_id(
       },
       include: {
         participants: true,
+        tasks: true,
       },
     });
 

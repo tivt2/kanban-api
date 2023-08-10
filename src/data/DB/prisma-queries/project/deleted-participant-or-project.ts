@@ -8,7 +8,7 @@ export async function delete_participant_or_project(
   try {
     const project = await prisma.$transaction(async (tx) => {
       let project = await tx.project.findUnique({
-        where: { id: project_id },
+        where: { id: project_id, participants: { some: { id: user_id } } },
         include: { participants: true },
       });
 
@@ -30,12 +30,12 @@ export async function delete_participant_or_project(
                 disconnect: { id: user_id },
               },
             },
-            include: { participants: true },
+            include: { participants: true, tasks: true },
           });
         } else {
           project = await tx.project.delete({
             where: { id: project_id },
-            include: { participants: true },
+            include: { participants: true, tasks: true },
           });
         }
 
@@ -49,7 +49,7 @@ export async function delete_participant_or_project(
             disconnect: { id: user_id },
           },
         },
-        include: { participants: true },
+        include: { participants: true, tasks: true },
       });
 
       return project;
