@@ -5,13 +5,16 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/HTTP/index",
+    "start": "npm run build && node dist/HTTP/index",
     "dev": "nodemon",
     "test": "jest --no-cache --watchAll"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node": ">=18.17.0"
+  },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
     "@types/cookie-parser": "^1.4.3",
