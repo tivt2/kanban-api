@@ -1,11 +1,13 @@
 import { Request, Response } from 'express';
 import { EditTaskRequest } from './edit-task.request';
 import { EditTaskService } from './edit-task.service';
+import { PubSubProjectService } from '../../shared/pub-sub-project/pub-sub-project.service';
 
 export class EditTaskController {
   constructor(
     private edit_task_request: EditTaskRequest,
     private edit_task_service: EditTaskService,
+    private pub_sub_project_service: PubSubProjectService,
   ) {}
 
   async control(req: Request, res: Response) {
@@ -36,6 +38,10 @@ export class EditTaskController {
       return;
     }
 
+    this.pub_sub_project_service.publish(project_id, {
+      type: 'UPDATE',
+      change: task.valueR,
+    });
     res.status(200);
     res.json({ task: task.valueR });
   }

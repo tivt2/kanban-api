@@ -1,4 +1,5 @@
 import { get_task_repository } from '../../../data/repositories/index.singletons';
+import { get_pub_sub_project_service } from '../../shared/pub-sub-project/index.singletons';
 import { DeleteTaskController } from './delete-task.controller';
 import { DeleteTaskRequest } from './delete-task.request';
 import { DeleteTaskService } from './delete-task.service';
@@ -36,6 +37,7 @@ export const get_delete_task_controller = (function initializer() {
       delete_task_controller = new DeleteTaskController(
         get_delete_task_request(),
         get_delete_task_service(),
+        get_pub_sub_project_service(),
       );
 
       return delete_task_controller;

@@ -1,11 +1,13 @@
 import { Request, Response } from 'express';
 import { ConnectProjectRequest } from './connect-project.request';
 import { ConnectProjectService } from './connect-project.service';
+import { PubSubProjectService } from '../../shared/pub-sub-project/pub-sub-project.service';
 
 export class ConnectProjectController {
   constructor(
     private connect_project_request: ConnectProjectRequest,
     private connect_project_service: ConnectProjectService,
+    private pub_sub_project_service: PubSubProjectService,
   ) {}
 
   async control(req: Request, res: Response) {
@@ -37,7 +39,17 @@ export class ConnectProjectController {
       'Cache-Control': 'no-cache',
       Connection: 'keep-alive',
     });
-    res.write(JSON.stringify(project.valueR));
-    req.on('close', () => res.end('Disconnect'));
+    res.write('data: ' + JSON.stringify(project.valueR) + '\n\n');
+    this.pub_sub_project_service.subscribe(
+      project_id,
+      user_id,
+      (project_change) => {
+        res.write('data: ' + JSON.stringify(project_change) + '\n\n');
+      },
+    );
+    req.on('close', () => {
+      this.pub_sub_project_service.unsubscribe(project_id, user_id);
+      res.end('Disconnect');
+    });
   }
 }

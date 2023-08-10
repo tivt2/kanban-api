@@ -1,4 +1,5 @@
 import { get_project_repository } from '../../../data/repositories/index.singletons';
+import { get_pub_sub_project_service } from '../../shared/pub-sub-project/index.singletons';
 import { ConnectProjectController } from './connect-project.controller';
 import { ConnectProjectRequest } from './connect-project.request';
 import { ConnectProjectService } from './connect-project.service';
@@ -38,6 +39,7 @@ export const get_connect_project_controller = (function initializer() {
       connect_project_controller = new ConnectProjectController(
         get_connect_project_request(),
         get_connect_project_service(),
+        get_pub_sub_project_service(),
       );
 
       return connect_project_controller;

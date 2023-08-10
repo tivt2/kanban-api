@@ -1,4 +1,5 @@
 import { get_task_repository } from '../../../data/repositories/index.singletons';
+import { get_pub_sub_project_service } from '../../shared/pub-sub-project/index.singletons';
 import { CreateTaskController } from './create-task.controller';
 import { CreateTaskRequest } from './create-task.request';
 import { CreateTaskService } from './create-task.service';
@@ -36,6 +37,7 @@ export const get_create_task_controller = (function initializer() {
       create_task_controller = new CreateTaskController(
         get_create_task_request(),
         get_create_task_service(),
+        get_pub_sub_project_service(),
       );
 
       return create_task_controller;

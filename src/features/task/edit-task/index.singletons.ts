@@ -1,4 +1,5 @@
 import { get_task_repository } from '../../../data/repositories/index.singletons';
+import { get_pub_sub_project_service } from '../../shared/pub-sub-project/index.singletons';
 import { EditTaskController } from './edit-task.controller';
 import { EditTaskRequest } from './edit-task.request';
 import { EditTaskService } from './edit-task.service';
@@ -36,6 +37,7 @@ export const get_edit_task_controller = (function initializer() {
       edit_task_controller = new EditTaskController(
         get_edit_task_request(),
         get_edit_task_service(),
+        get_pub_sub_project_service(),
       );
 
       return edit_task_controller;
