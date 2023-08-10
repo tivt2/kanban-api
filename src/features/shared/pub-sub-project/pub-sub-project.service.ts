@@ -24,7 +24,7 @@ export class PubSubProjectService {
     const subscribers = this.projects.get(project_id);
 
     if (!subscribers) {
-      throw new Error('Errow while publishing');
+      return;
     }
 
     subscribers.forEach(([_user_id, callback]) => callback(project_change));

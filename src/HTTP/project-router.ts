@@ -7,6 +7,7 @@ import { get_connect_project_controller } from '../features/project/connect-to-p
 import { get_create_task_controller } from '../features/task/create-task/index.singletons';
 import { get_delete_task_controller } from '../features/task/delete-task/index.singletons';
 import { get_edit_task_controller } from '../features/task/edit-task/index.singletons';
+import { server_error_catcher_middleware } from './middleware/server-error-catcher';
 
 export const project_router = Router();
 
@@ -49,7 +50,4 @@ project_router.delete('/:project_id/:task_id', async (req, res) => {
   await get_delete_task_controller().control(req, res);
 });
 
-project_router.use((error: Error, req: Request, res: Response) => {
-  res.status(500);
-  res.json({ message: error.message });
-});
+project_router.use(server_error_catcher_middleware('project_router'));

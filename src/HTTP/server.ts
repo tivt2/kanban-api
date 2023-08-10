@@ -1,9 +1,10 @@
-import express, { Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { auth_router } from './auth-router';
 import { api_router } from './api-router';
+import { server_error_catcher_middleware } from './middleware/server-error-catcher';
 
 const app = express();
 
@@ -21,12 +22,6 @@ app.use('/auth', auth_router);
 
 app.use('/api', api_router);
 
-app.use((err: Error, req: Request, res: Response) => {
-  console.log('Unexpected error: ', err);
-  res.status(500);
-  res.json({
-    message: 'Something wrong happend, please try again in a moment',
-  });
-});
+app.use(server_error_catcher_middleware('server'));
 
 export default app;
