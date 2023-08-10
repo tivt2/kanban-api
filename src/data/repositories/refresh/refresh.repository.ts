@@ -1,8 +1,8 @@
 import { RefreshModel } from '../../../models/refresh.model';
-import { create_refresh } from '../../DB/prisma-queries/refresh/create-refresh';
-import { delete_refresh_by_created_at } from '../../DB/prisma-queries/refresh/delete-refresh-by-created-at';
-import { delete_user_refreshes_by_user_id } from '../../DB/prisma-queries/refresh/delete-user-refreshses-by-user-id';
-import { find_refresh_by_refresh_token } from '../../DB/prisma-queries/refresh/find-refresh-by-refresh-token';
+import { create_refresh } from '../../DB/prisma-queries/auth/refresh/create-refresh';
+import { delete_refresh_by_created_at } from '../../DB/prisma-queries/auth/refresh/delete-refresh-by-created-at';
+import { delete_user_refreshes_by_user_id } from '../../DB/prisma-queries/auth/refresh/delete-user-refreshses-by-user-id';
+import { find_refresh_by_refresh_token } from '../../DB/prisma-queries/auth/refresh/find-refresh-by-refresh-token';
 import { IRefreshRepository } from './refresh.repository.interface';
 
 export class RefreshRepository implements IRefreshRepository {

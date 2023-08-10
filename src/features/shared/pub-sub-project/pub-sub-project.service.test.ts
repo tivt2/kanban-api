@@ -1,3 +1,0 @@
-describe('PubSubProject', () => {
-  test('', async () => {});
-});

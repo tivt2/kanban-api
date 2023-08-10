@@ -1,5 +1,5 @@
-import { RefreshModel } from '../../../../models/refresh.model';
-import prisma from '../../prisma-client';
+import { RefreshModel } from '../../../../../models/refresh.model';
+import prisma from '../../../prisma-client';
 
 export async function create_refresh(
   refresh_data: RefreshModel,

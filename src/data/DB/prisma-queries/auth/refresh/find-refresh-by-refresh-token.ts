@@ -1,5 +1,5 @@
-import { RefreshModel } from '../../../../models/refresh.model';
-import prisma from '../../prisma-client';
+import { RefreshModel } from '../../../../../models/refresh.model';
+import prisma from '../../../prisma-client';
 
 export async function find_refresh_by_refresh_token(
   refresh_token: string,

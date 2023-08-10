@@ -1,4 +1,4 @@
-import prisma from '../../prisma-client';
+import prisma from '../../../prisma-client';
 
 export async function delete_user_refreshes_by_user_id(
   user_id: string,
