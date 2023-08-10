@@ -7,7 +7,7 @@ import { CreateTaskServiceError } from '../errors/create-task.service.error';
 export class CreateTaskService {
   constructor(private task_repository: ITaskRepository) {}
 
-  async create_taks(
+  async create_task(
     project_id: string,
     user_id: string,
     title: string,
