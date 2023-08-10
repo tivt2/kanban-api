@@ -20,7 +20,6 @@ const create_task_request_schema = z.object({
       .default(''),
     status: z
       .enum(Object.keys(TaskStatus) as [TaskStatusModel], {
-        required_error: 'Invalid task data',
         invalid_type_error: 'Invalid task data',
       })
       .optional()

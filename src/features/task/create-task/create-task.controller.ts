@@ -10,7 +10,6 @@ export class CreateTaskController {
 
   async control(req: Request, res: Response) {
     const result = await this.create_task_request.validate(req);
-
     if (result.isLeft()) {
       res.status(401);
       res.json({ message: result.valueL.message });
@@ -21,7 +20,7 @@ export class CreateTaskController {
       params: { project_id },
       body: { user_id, title, content, status },
     } = result.valueR;
-    const task = await this.create_task_service.create_taks(
+    const task = await this.create_task_service.create_task(
       project_id,
       user_id,
       title,

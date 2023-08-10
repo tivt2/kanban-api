@@ -27,8 +27,8 @@ export async function update_task(
       if (!old_task) {
         return null;
       }
-      const update = {
-        task_id,
+      const update_task = {
+        // task_id,
         updated_by: user_id,
         ...old_task,
       };
@@ -40,7 +40,7 @@ export async function update_task(
           content,
           status,
           updates: {
-            create: update,
+            create: update_task,
           },
         },
         include: { updates: true },

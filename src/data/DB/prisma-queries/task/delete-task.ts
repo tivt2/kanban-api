@@ -16,7 +16,7 @@ export async function delete_task(
         return null;
       }
 
-      const task = await prisma.task.delete({
+      const task = await tx.task.delete({
         where: { id: task_id },
         include: { updates: true },
       });

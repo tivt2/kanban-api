@@ -49,13 +49,13 @@ model Task {
   content String
   status TaskStatus @default(INCOMPLETE)
 
-  created_by String @unique
+  created_by String
   created_at DateTime @default(now())
 
   updates TaskUpdate[]
 
   user User @relation(fields: [created_by], references: [id])
-  project Project @relation(fields: [project_id], references: [id])
+  project Project @relation(fields: [project_id], references: [id], onDelete: Cascade)
 }
 
 model TaskUpdate {

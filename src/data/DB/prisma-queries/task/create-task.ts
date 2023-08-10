@@ -1,4 +1,8 @@
-import { TaskModel, TaskStatusModel } from '../../../../models/task.model';
+import {
+  TaskModel,
+  TaskStatusModel,
+  TaskUpdateModel,
+} from '../../../../models/task.model';
 import prisma from '../../prisma-client';
 
 export async function create_task(
@@ -26,7 +30,9 @@ export async function create_task(
           content,
           status,
         },
-        include: { updates: true },
+        include: {
+          updates: true,
+        },
       });
 
       return task;

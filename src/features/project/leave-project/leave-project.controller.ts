@@ -33,6 +33,6 @@ export class LeaveProjectController {
     }
 
     res.status(200);
-    res.json({ message: `Left from project ${project.valueR.title}` });
+    res.json({ project: project.valueR });
   }
 }

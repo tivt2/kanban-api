@@ -27,6 +27,6 @@ export class CreateProjectController {
     );
 
     res.status(200);
-    res.json({ message: `Created project ${created_project.title}` });
+    res.json({ project: created_project });
   }
 }
